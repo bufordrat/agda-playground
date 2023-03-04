@@ -85,10 +85,6 @@ module Theorems (B : BooleanRing) where
               rewrite (+-comm { q } { p }) | (+-comm { q } { r }) =
               cancel-right
 
-
-  -- cancel-foil : ∀ { p q r : Carrier } → p ∙ q + q ∙ p
-  -- cancel-foil = cancel-left foil-rule
-
   -- second part of Givant and Halmos proof
 
   -- y ≡ (x ∙ y) + (y ∙ x) + y	      			subtract x from both sides
