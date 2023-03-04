@@ -3,4 +3,4 @@
 
 As an exercise for learning Agda, I have been trying to code up the
 opening pages of Givant and Halmos' [[https://link.springer.com/book/10.1007/978-0-387-68436-9][Introduction to Boolean Algebras]].
-So far, I am pretty impressed with Agda.
+Agda is quite the bomb-ass language, if you ask me.
