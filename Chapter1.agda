@@ -130,3 +130,57 @@ module Theorems (B : BooleanRing) where
     ≡⟨ sym (double-p-q { p } { p }) ⟩
       ∅
     ∎
+
+
+module NathanTheorems (B : BooleanRing) where
+
+  open BooleanRing B
+
+  +-inverse-is-unique : ∀ {x y} → x + y ≡ ∅ → y ≡ ¬ x
+  +-inverse-is-unique {x} {y} prf =
+    begin
+      y
+    ≡⟨ sym +-id ⟩
+      y + ∅
+    ≡⟨ +-comm ⟩
+      ∅ + y
+    ≡⟨ cong (λ z → z + y) (sym +-inverse) ⟩
+      (x + ¬ x) + y
+    ≡⟨ cong (λ z → z + y) +-comm ⟩
+      (¬ x + x) + y
+    ≡⟨ +-assoc ⟩
+      ¬ x + (x + y)
+    ≡⟨ cong (λ z → ¬ x + z) prf ⟩
+      ¬ x + ∅
+    ≡⟨ +-id ⟩
+      ¬ x
+    ∎
+
+  ¬¬-is-id : ∀ {x : Carrier} → ¬ (¬ x) ≡ x
+  ¬¬-is-id = sym (+-inverse-is-unique (trans +-comm +-inverse))
+
+  characteristicTwo : ∀ {x : Carrier} → x + x ≡ ∅
+  characteristicTwo {x} =
+    begin
+      x + x
+    ≡⟨  sym +-id ⟩
+      (x + x) + ∅
+    ≡⟨ cong (λ z → (x + x) + z) (sym +-inverse) ⟩
+      (x + x) + ((x + x) + ¬ (x + x))
+    ≡⟨ sym +-assoc ⟩
+      ((x + x) + (x + x)) + ¬ (x + x)
+    ≡⟨ cong (λ z → ((z + z) + (z + z)) + ¬ (x + x)) (sym ∙-idemp) ⟩
+      (((x ∙ x) + (x ∙ x)) + ((x ∙ x) + (x ∙ x))) + ¬ (x + x)
+    ≡⟨ cong (λ z → (z + z) + ¬ (x + x)) (sym right-distrib) ⟩
+      (((x + x) ∙ x) + ((x + x) ∙ x)) + ¬ (x + x)
+    ≡⟨ cong (λ z → z + ¬ (x + x)) (sym left-distrib) ⟩
+      ((x + x) ∙ (x + x)) + ¬ (x + x)
+    ≡⟨ cong (λ z → z + ¬ (x + x)) ∙-idemp ⟩
+      (x + x) + ¬ (x + x)
+    ≡⟨ +-inverse ⟩
+      ∅
+    ∎
+
+  inverse-is-id : ∀ {x} → ¬ x ≡ x
+  inverse-is-id {x} = sym (+-inverse-is-unique characteristicTwo)
+
