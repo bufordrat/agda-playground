@@ -152,6 +152,9 @@ module Theorems (B : BooleanRing) where
 
 module NathanTheorems (B : BooleanRing) where
 
+  -- Alternate proof of boolean rings having characteristic two,
+  -- courtesy of Nathan Mull.
+
   open BooleanRing B
 
   +-inverse-is-unique : ∀ {x y} → x + y ≡ ∅ → y ≡ ¬ x
