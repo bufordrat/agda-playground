@@ -135,8 +135,8 @@ module Theorems (B : BooleanRing) where
                          p ≡ ¬ p
   inverse-does-nothing { p } = conclusion
     where
-      make-cancellable : p + p ≡ p + ¬ p
-      make-cancellable =
+      made-cancellable : p + p ≡ p + ¬ p
+      made-cancellable =
         begin
           p + p
         ≡⟨ characteristic-two ⟩
@@ -144,7 +144,7 @@ module Theorems (B : BooleanRing) where
         ≡⟨ sym +-inverse ⟩
           p + ¬ p
         ∎
-      conclusion = cancel-left make-cancellable
+      conclusion = cancel-left made-cancellable
 
 module NathanTheorems (B : BooleanRing) where
 
