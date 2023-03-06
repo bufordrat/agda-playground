@@ -96,7 +96,7 @@ module Theorems (B : BooleanRing) where
   cancel-last-one-standing { p } { r } prf = conclusion
     where
       add-zero : p + ∅ ≡ p + r
-      add-zero rewrite +-id { p } | +-comm { p } { r }= prf
+      add-zero rewrite +-id { p } | +-comm { p } { r } = prf
       conclusion : ∅ ≡ r
       conclusion = cancel-left add-zero
 
@@ -115,8 +115,8 @@ module Theorems (B : BooleanRing) where
       equality : ∅ ≡ p ∙ q + q ∙ p
       equality = cancel-last-one-standing just-q
 
-  characteristic-two : ∀ { p q r : Carrier } → p + p ≡ ∅
-  characteristic-two { p } { q } { r } = 
+  characteristic-two : ∀ { p : Carrier } → p + p ≡ ∅
+  characteristic-two { p } = 
     begin
       p + p
     ≡⟨ cong (λ z → z + p) (sym ∙-idemp) ⟩
@@ -127,6 +127,28 @@ module Theorems (B : BooleanRing) where
       ∅
     ∎
 
+  -- what to show next: every element is its own additive inverse
+
+  -- fairly immediate from characteristic-two
+
+  inverse-does-nothing : ∀ { p : Carrier } →
+                         p ≡ ¬ p
+  inverse-does-nothing { p } = 
+    begin
+      p
+    ≡⟨ sym +-id ⟩
+      p + ∅
+    ≡⟨ cong (\z -> p + z) (sym +-inverse) ⟩
+      p + p + ¬ p
+    ≡⟨ sym +-assoc ⟩
+      (p + p) + ¬ p
+    ≡⟨ cong (λ z → z + ¬ p) characteristic-two ⟩
+      ∅ + ¬ p
+    ≡⟨ +-comm ⟩
+      ¬ p + ∅
+    ≡⟨ +-id { ¬ p } ⟩
+      ¬ p
+    ∎
 
 module NathanTheorems (B : BooleanRing) where
 
