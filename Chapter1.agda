@@ -146,7 +146,7 @@ module Theorems (B : BooleanRing) where
       ∅ + ¬ p
     ≡⟨ +-comm ⟩
       ¬ p + ∅
-    ≡⟨ +-id { ¬ p } ⟩
+    ≡⟨ +-id ⟩
       ¬ p
     ∎
 
