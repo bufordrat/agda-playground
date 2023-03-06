@@ -40,6 +40,8 @@ module Theorems (B : BooleanRing) where
   --       ≡ ((x ∙ x) + (x ∙ y)) + ((y ∙ x) + (y ∙ y))	left-distributivity
   --       ≡ x + (x ∙ y) + (y ∙ x) + y	      		idempotence
 
+  -- lemma: idempotence plus the distributivity laws lets you do this
+  -- polynomial-refactoring-looking thing
   foil-rule : ∀ { p q : Carrier } → p + q ≡ p + p ∙ q + q ∙ p + q
   foil-rule { p } { q } =
     begin
@@ -60,6 +62,8 @@ module Theorems (B : BooleanRing) where
       p + p ∙ q + q ∙ p + q
     ∎
 
+  -- lemma: you get to cancel out the same expression when it's added
+  -- on the right
   cancel-right : ∀ { p q r : Carrier } → p + q ≡ r + q → p ≡ r
   cancel-right { p } { q } { r } prf =
     begin
@@ -80,6 +84,8 @@ module Theorems (B : BooleanRing) where
       r
     ∎
 
+  -- lemma: you get to cancel out the same expresison when it's added
+  -- on the left
   cancel-left : ∀ { p q r : Carrier } → q + p ≡ q + r → p ≡ r
   cancel-left { p } { q } { r }
               rewrite (+-comm { q } { p }) | (+-comm { q } { r }) =
@@ -92,6 +98,8 @@ module Theorems (B : BooleanRing) where
   --   ≡ (x ∙ x) + (x + x)				substitute x for y
   --   ≡ x + x						idempotence
 
+  -- special case of left-cancellation where the cancelled expression
+  -- is the only thing on the left hand side of the equation
   cancel-last-one-standing : ∀ { p r : Carrier } → p ≡ r + p → ∅ ≡ r
   cancel-last-one-standing { p } { r } prf = conclusion
     where
@@ -100,6 +108,7 @@ module Theorems (B : BooleanRing) where
       conclusion : ∅ ≡ r
       conclusion = cancel-left add-zero
 
+  -- cleaned up/cancelled version of foil-rule lemma
   double-p-q : ∀ { p q : Carrier } → ∅ ≡ p ∙ q + q ∙ p
   double-p-q { p } { q } = equality
     where
@@ -115,6 +124,8 @@ module Theorems (B : BooleanRing) where
       equality : ∅ ≡ p ∙ q + q ∙ p
       equality = cancel-last-one-standing just-q
 
+  -- theorem: every element in a boolean ring is its own additive
+  -- inverse
   characteristic-two : ∀ { p : Carrier } → p + p ≡ ∅
   characteristic-two { p } = 
     begin
@@ -131,6 +142,7 @@ module Theorems (B : BooleanRing) where
 
   -- fairly immediate from characteristic-two
 
+  -- theorem: every element is equivalent to its negation
   inverse-does-nothing : ∀ { p : Carrier } →
                          p ≡ ¬ p
   inverse-does-nothing { p } = conclusion
