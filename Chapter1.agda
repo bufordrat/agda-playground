@@ -133,22 +133,18 @@ module Theorems (B : BooleanRing) where
 
   inverse-does-nothing : ∀ { p : Carrier } →
                          p ≡ ¬ p
-  inverse-does-nothing { p } = 
-    begin
-      p
-    ≡⟨ sym +-id ⟩
-      p + ∅
-    ≡⟨ cong (\z -> p + z) (sym +-inverse) ⟩
-      p + p + ¬ p
-    ≡⟨ sym +-assoc ⟩
-      (p + p) + ¬ p
-    ≡⟨ cong (λ z → z + ¬ p) characteristic-two ⟩
-      ∅ + ¬ p
-    ≡⟨ +-comm ⟩
-      ¬ p + ∅
-    ≡⟨ +-id ⟩
-      ¬ p
-    ∎
+  inverse-does-nothing { p } = conclusion
+    where
+      make-cancellable : p + p ≡ p + ¬ p
+      make-cancellable =
+        begin
+          p + p
+        ≡⟨ characteristic-two ⟩
+          ∅
+        ≡⟨ sym +-inverse ⟩
+          p + ¬ p
+        ∎
+      conclusion = cancel-left make-cancellable
 
 module NathanTheorems (B : BooleanRing) where
 
