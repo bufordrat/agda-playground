@@ -127,7 +127,7 @@ module Theorems (B : BooleanRing) where
       ∅
     ∎
 
-  -- what to show next: every element is its own additive inverse
+  -- what to show next: every element is equivalent to its negation
 
   -- fairly immediate from characteristic-two
 
