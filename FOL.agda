@@ -2,6 +2,7 @@ module FOL where
 
 open import Data.Product
 open import Data.Sum
+open import Relation.Nullary.Negation
 
 -- Teller Volume 2, Chap. 5, exercise 1a
 --  Prove:
@@ -59,6 +60,22 @@ teller2-5-1-d {Carrier}
               {A}
               wide_prf
               narrow_prf = {!!}
+
+
+-- Teller Volume 2, Chap. 5, exercise 1h
+--  Prove:
+--   (∀x)(Rxx ∨ Rxk)
+--   (∀y)~Ryk
+--   ___
+--   Rcc & Rff
+
+teller2-5-1-h : {Carrier : Set} →
+                {R : Carrier → Carrier → Set} →
+                {c f k : Carrier} →
+                ((x : Carrier) -> R x x ⊎ R x k) →
+                ((y : Carrier) -> ¬ R y k) →
+                R c c × R f f
+teller2-5-1-h = {!!}
 
 
 -- Teller Volume 2, Chap. 5, exercise 2a
