@@ -9,13 +9,13 @@ open import Data.Sum
 --   ___
 --   Pk
 
-teller2-5-1-a : {Carrier : Set} →
+teller2-5-1-a : {Carrier : Set}
                 {k : Carrier} →
                 {P D : Carrier → Set} → 
                 ((x : Carrier) → P x × D x) →
-                D k
-teller2-5-1-a {Carrier} {k} prf with prf k
-... | (pk , dk) = dk
+                P k
+teller2-5-1-a {Carrier} {k} {P} {D} prf with prf k
+... | (pk , dk) = pk
 
 
 -- Teller Volume 2, Chap. 5, exercise 1c
@@ -77,3 +77,19 @@ teller2-5-2-a {Carrier}
               {G}
               {a}
               na = (a , inj₁ na)
+
+
+
+-- Teller Volume 2, Chap. 5, exercise 2e
+--  Prove:
+--   Fa ∨ Nh
+--   ___
+--   (∃x)Fx ∨ (∃x)Nx
+
+teller2-5-2-e : {Carrier : Set} →
+                {F N : Carrier → Set} →
+                {a : Carrier} → 
+                {h : Carrier} →
+                F a ⊎ N h →
+                Σ Carrier (λ x → F x) ⊎ Σ Carrier (λ x → N x)
+teller2-5-2-e = {!!}
