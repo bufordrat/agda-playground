@@ -94,3 +94,21 @@ teller2-5-2-e : {Carrier : Set} →
                 Σ Carrier (λ x → F x) ⊎ Σ Carrier (λ x → N x)
 teller2-5-2-e {F} {N} {a} {h} (inj₁ fa) = inj₁ (_ , fa)
 teller2-5-2-e {F} {N} {a} {h} (inj₂ nh) = inj₂ (_ , nh)
+
+
+-- Teller Volume 2, Chap. 5, exercise 2i
+--  Prove:
+--   (∃x)Jx → Q
+--   (∀x)Jx
+--   ___
+--   Q
+
+teller2-5-2-i : {Carrier : Set} →
+                {J : Carrier → Set} →
+                {Q : Set} →
+                Σ Carrier (λ x → J x → Q) →
+                ((x : Carrier) → J x) →
+                Q
+teller2-5-2-i {Carrier} {J} {Q} (wit , cond) univ =
+  cond (univ wit)
+
