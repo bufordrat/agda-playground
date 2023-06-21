@@ -92,4 +92,5 @@ teller2-5-2-e : {Carrier : Set} →
                 {h : Carrier} →
                 F a ⊎ N h →
                 Σ Carrier (λ x → F x) ⊎ Σ Carrier (λ x → N x)
-teller2-5-2-e = {!!}
+teller2-5-2-e {F} {N} {a} {h} (inj₁ fa) = inj₁ (_ , fa)
+teller2-5-2-e {F} {N} {a} {h} (inj₂ nh) = inj₂ (_ , nh)
