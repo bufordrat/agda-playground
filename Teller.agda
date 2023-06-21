@@ -20,6 +20,7 @@ module 2-5-1-a where
                (∀ (x : Carrier) → P x × D x) →
                -------------
                P k
+
     implicit prf with prf _
     ... | (pk , dk) = pk
 
@@ -41,6 +42,7 @@ module 2-5-1-c where
                (∀ (x : Carrier) → D x) →
                -------------
                K a
+
     implicit wide_prf
              narrow_prf
              with (wide_prf _ , narrow_prf _)
@@ -65,6 +67,7 @@ module 2-5-1-d where
                (∀ (x : Carrier) → M x) →
                -------------
                A
+
     implicit {Carrier}
              {A}
              wide_prf
@@ -88,6 +91,7 @@ module 2-5-1-h where
                (∀ (y : Carrier) -> ¬ R y k) →
                -------------
                R c c × R f f
+
     implicit = {!!}
 
 
@@ -106,6 +110,7 @@ module 2-5-2-a where
                N a →
                -------------
                ∃[ x ] (N x ⊎ G x)
+
     implicit na = (_ , inj₁ na)
 
 
@@ -122,9 +127,10 @@ module 2-5-2-e where
                {F N : Carrier → Set} →
                {a : Carrier} → 
                {h : Carrier} →
-               -------------
                F a ⊎ N h →
+               -------------
                ∃[ x ] F x ⊎ ∃[ x ] N x
+
     implicit (inj₁ fa) = inj₁ (_ , fa)
     implicit (inj₂ nh) = inj₂ (_ , nh)
 
@@ -147,6 +153,7 @@ module 2-5-2-g where
                R e a →
                -------------
                ∃[ x ] R a x
+
     explicit Carrier R a e ex_to_univ rea = ex_rae
       where
         ex_rea : ∃[ x ] R x a
@@ -179,6 +186,7 @@ module 2-5-2-i where
                -------------
                (∀ (x : Carrier) → J x) →
                Q
+
     implicit {Carrier} {J} {Q} (wit , cond) univ =
       cond (univ wit)
 
