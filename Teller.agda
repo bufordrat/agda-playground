@@ -187,6 +187,6 @@ module 2-5-2-i where
                (∀ (x : Carrier) → J x) →
                Q
 
-    implicit {Carrier} {J} {Q} (wit , cond) univ =
+    implicit (wit , cond) univ =
       cond (univ wit)
 
