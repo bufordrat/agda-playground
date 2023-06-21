@@ -84,20 +84,44 @@ module 2-5-1-h where
     --   --------
     --   Rcc & Rff
 
-    implicit : {Carrier : Set} →
-               {R : Carrier → Carrier → Set} →
-               {c f k : Carrier} →
+    explicit : (Carrier : Set) →
+               (R : Carrier → Carrier → Set) →
+               (c f k : Carrier) →
                (∀ (x : Carrier) -> R x x ⊎ R x k) →
                (∀ (y : Carrier) -> ¬ R y k) →
                -------------
                R c c × R f f
 
-    implicit = {!!}
+    explicit Carrier R c f k univ_disj univ_neg = {!!}
+      where
+        univ_disj_c : R c c ⊎ R c k
+        univ_disj_c = univ_disj c
+
+        univ_disj_f : R f f ⊎ R f k
+        univ_disj_f = univ_disj f
+
+        not_rfk : ¬ R f k
+        not_rfk = univ_neg f
+
+        not_cfk : ¬ R c k
+        not_cfk = univ_neg c
+
+        disj_c_elim : R c c ⊎ R c k → R c c
+        disj_c_elim (inj₁ rcc) = rcc
+        disj_c_elim (inj₂ rck) = {!!}
+
+        disj_f_elim : R f f ⊎ R f k -> R f f
+        disj_f_elim (inj₁ rff) = rff
+        disj_f_elim (inj₂ rfk) = {!!}
+
+        conclusion : R c c × R f f
+        conclusion = (disj_c_elim univ_disj_c , disj_f_elim univ_disj_f)
 
 
 module 2-5-2-a where
 
     -- Teller Volume 2, Chap. 5, exercise 2a
+
 
     --  Prove:
     --   Na
