@@ -106,11 +106,7 @@ module 2-5-2-a where
                N a →
                -------------
                ∃[ x ] (N x ⊎ G x)
-    implicit {Carrier}
-             {N}
-             {G}
-             {a}
-             na = (a , inj₁ na)
+    implicit na = (_ , inj₁ na)
 
 
 module 2-5-2-e where
@@ -129,8 +125,8 @@ module 2-5-2-e where
                -------------
                F a ⊎ N h →
                ∃[ x ] F x ⊎ ∃[ x ] N x
-    implicit {Carrier} {F} {N} {a} {h} (inj₁ fa) = inj₁ (a , fa)
-    implicit {Carrier} {F} {N} {a} {h} (inj₂ nh) = inj₂ (h , nh)
+    implicit (inj₁ fa) = inj₁ (_ , fa)
+    implicit (inj₂ nh) = inj₂ (_ , nh)
 
 
 module 2-5-2-g where
@@ -143,15 +139,15 @@ module 2-5-2-g where
     --   -------
     --   (∃x)Rax
 
-    implicit : {Carrier : Set} →
-               {R : Carrier → Carrier → Set} →
-               {a : Carrier} →
-               {e : Carrier} →
+    explicit : (Carrier : Set) →
+               (R : Carrier → Carrier → Set) →
+               (a : Carrier) →
+               (e : Carrier) →
                (∃[ x ] R x a -> ∀ (x : Carrier) → R a x) →
                R e a →
                -------------
                ∃[ x ] R a x
-    implicit {Carrier} {R} {a} {e} ex_to_univ rea = ex_rae
+    explicit Carrier R a e ex_to_univ rea = ex_rae
       where
         ex_rea : ∃[ x ] R x a
         ex_rea = (e , rea)
