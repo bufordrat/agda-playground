@@ -116,8 +116,14 @@ module 2-5-1-h where
         disj_f_elim (inj₁ rff) = rff
         disj_f_elim (inj₂ rfk) = ⊥-elim (not_rfk rfk)
 
+        rcc : R c c
+        rcc = disj_c_elim univ_disj_c
+
+        rff : R f f
+        rff = disj_f_elim univ_disj_f
+
         conclusion : R c c × R f f
-        conclusion = (disj_c_elim univ_disj_c , disj_f_elim univ_disj_f)
+        conclusion = (rcc , rff)
 
 
 module 2-5-2-a where
