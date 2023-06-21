@@ -94,7 +94,7 @@ module 2-5-1-h where
                -------------
                R c c × R f f
 
-    explicit Carrier R c f k univ_disj univ_neg = {!!}
+    explicit Carrier R c f k univ_disj univ_neg = conclusion
       where
         univ_disj_c : R c c ⊎ R c k
         univ_disj_c = univ_disj c
