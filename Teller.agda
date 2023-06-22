@@ -26,6 +26,16 @@ module 2-5-1-a where
     implicit prf with prf _
     ... | (pk , dk) = pk
 
+    explicit : (Carrier : Set)
+               (k : Carrier) →
+               (P D : Carrier → Set) → 
+               (∀ (x : Carrier) → P x × D x) →
+               -------------
+               P k
+
+    explicit Carrier k P D prf with prf k
+    ... | (pk , dk) = pk
+
 
 module 2-5-1-c where
 
@@ -50,6 +60,23 @@ module 2-5-1-c where
              with (wide_prf _ , narrow_prf _)
     ... | (cond , da) = cond da
 
+    explicit : (Carrier : Set) →
+               (a : Carrier) →
+               (K D : Carrier → Set) → 
+               (∀ (x : Carrier) → D x → K x) →
+               (∀ (x : Carrier) → D x) →
+               -------------
+               K a
+
+    explicit Carrier
+             a
+             K
+             D
+             wide_prf
+             narrow_prf
+             with (wide_prf a , narrow_prf a)
+    ... | (cond , da) = cond da
+
 
 module 2-5-1-d where
 
@@ -63,17 +90,18 @@ module 2-5-1-d where
     -- Hmm, stuck on this one; is that because this inference is only
     -- good in classical logic?
 
-    implicit : {Carrier A : Set} →
-               {M : Carrier → Set} →
+    explicit : (Carrier A : Set) →
+               (M : Carrier → Set) →
+               (a : Carrier) →
                (∀ (x : Carrier) → (M x → A)) →
                (∀ (x : Carrier) → M x) →
                -------------
                A
 
-    implicit {Carrier}
-             {A}
-             wide_prf
-             narrow_prf = {!!}
+    explicit Carrier A M a wide_prf narrow_prf = {!!}
+      where
+        mxa : M a → A
+        mxa = {!!}
 
 
 module 2-5-1-h where
@@ -221,4 +249,5 @@ module 2-5-2-i where
 
     implicit (wit , cond) univ =
       cond (univ wit)
+
 
