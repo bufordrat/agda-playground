@@ -90,22 +90,29 @@ module 2-5-1-d where
     -- Hmm, stuck on this one; is that because this inference is only
     -- good in classical logic?
 
-    -- UPDATE: hmm, I guess it works if you add this a thing, which is
-    -- effectively introducing Teller's assumption that Carrier is
-    -- inhabited...
+    -- UPDATE: hmm, I guess it works if you add this wit thing (short
+    -- for 'witness'), which is effectively introducing Teller's
+    -- assumption that his first-order logic has no empty domains, in
+    -- other words that Carrier is inhabited...
 
     explicit : (Carrier A : Set) →
                (M : Carrier → Set) →
-               (a : Carrier) →
+               (wit : Carrier) →
                (∀ (x : Carrier) → (M x → A)) →
                (∀ (x : Carrier) → M x) →
                -------------
                A
 
-    explicit Carrier A M a wide_prf narrow_prf = {!!}
+    explicit Carrier A M wit wide_prf narrow_prf = a
       where
-        mxa : M a → A
-        mxa = {!!}
+        m_wit_a : M wit → A
+        m_wit_a = wide_prf wit
+
+        m_wit : M wit
+        m_wit = narrow_prf wit
+
+        a : A
+        a = m_wit_a m_wit
 
 
 module 2-5-1-h where
@@ -177,6 +184,14 @@ module 2-5-2-a where
 
     implicit na = (_ , inj₁ na)
 
+    explicit : (Carrier : Set) →
+               (N G : Carrier → Set) →
+               (a : Carrier) →
+               N a →
+               -------------
+               ∃[ x ] (N x ⊎ G x)
+
+    explicit Carrier N G a na = (a , inj₁ na)
 
 module 2-5-2-e where
 
@@ -197,6 +212,18 @@ module 2-5-2-e where
 
     implicit (inj₁ fa) = inj₁ (_ , fa)
     implicit (inj₂ nh) = inj₂ (_ , nh)
+
+    explicit : (Carrier : Set) →
+               (F N : Carrier → Set) →
+               (a : Carrier) → 
+               (h : Carrier) →
+               F a ⊎ N h →
+               -------------
+               ∃[ x ] F x ⊎ ∃[ x ] N x
+
+    explicit Carrier F N a h (inj₁ fa) = inj₁ (a , fa)
+    explicit Carrier F N a h (inj₂ nh) = inj₂ (h , nh)
+
 
 
 module 2-5-2-g where
@@ -254,4 +281,14 @@ module 2-5-2-i where
     implicit (wit , cond) univ =
       cond (univ wit)
 
+    explicit : (Carrier : Set) →
+               (J : Carrier → Set) →
+               (Q : Set) →
+               ∃[ x ] (J x → Q) →
+               -------------
+               (∀ (x : Carrier) → J x) →
+               Q
+
+    explicit Carrier J Q (wit , cond) univ =
+      cond (univ wit)
 
