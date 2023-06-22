@@ -90,6 +90,10 @@ module 2-5-1-d where
     -- Hmm, stuck on this one; is that because this inference is only
     -- good in classical logic?
 
+    -- UPDATE: hmm, I guess it works if you add this a thing, which is
+    -- effectively introducing Teller's assumption that Carrier is
+    -- inhabited...
+
     explicit : (Carrier A : Set) →
                (M : Carrier → Set) →
                (a : Carrier) →
