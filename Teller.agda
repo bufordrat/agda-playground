@@ -13,7 +13,7 @@ module 2-5-1-a where
 
     --  Prove:
     --   (∀x)(Px & Dx)
-    --   --------
+    --   --------n
     --   Pk
 
     implicit : {Carrier : Set}
@@ -78,7 +78,7 @@ module 2-5-1-c where
     ... | (cond , da) = cond da
 
 
-module 2-5-1-d where
+module 2-5-1-d-nonempty where
 
     -- Teller Volume 2, Chap. 5, exercise 1d
 
@@ -87,14 +87,9 @@ module 2-5-1-d where
     --   --------
     --   (∀x)Mx → A
 
-    -- Hmm, stuck on this one; is that because this inference is only
-    -- good in classical logic?
-
-    -- UPDATE: hmm, I guess it works if you add this wit thing (short
-    -- for 'witness'), which is effectively introducing Teller's
-    -- assumption that his first-order logic has no empty domains, in
-    -- other words that Carrier is inhabited...
-
+    -- If you add the assumption that Carrier is inhabited, this
+    -- inference works.  Without it, see the next exercise!
+    
     explicit : (Carrier A : Set) →
                (M : Carrier → Set) →
                (wit : Carrier) →
@@ -114,6 +109,33 @@ module 2-5-1-d where
         a : A
         a = m_wit_a m_wit
 
+
+module 2-5-1-d where
+
+    -- What Teller Volume 2, Chap. 5, exercise 1d ought to have been,
+    -- in a just intuitionist world.
+
+    --  Prove:
+    --   (∀x)(Mx → A) → (∀x)(Mx → A)
+    --   --------
+    --   ⊥
+
+    -- LOL, this isn't working at all
+
+    mixed : {Carrier A : Set} →
+            ((Carrier A : Set) →
+              (M : Carrier → Set) →
+              (∀ (x : Carrier) → M x → A) →
+              (∀ (x : Carrier) → M x) →
+              A) →
+            ⊥
+
+    mixed {Carrier} {A} prf = {!!}
+      where
+        lemma : (∀ (x : Carrier) → ⊥ → A) → (∀ (x : Carrier) → ⊥)
+        lemma = {!!}
+        -- prf Carrier (λ _ → ¬ A) (λ (_ : Carrier) -> ⊥)
+      
 
 module 2-5-1-h where
 
