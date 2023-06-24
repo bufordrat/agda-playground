@@ -122,7 +122,8 @@ module 2-5-1-d where
 
     -- LOL, this isn't working at all
 
-    mixed : {Carrier A : Set} →
+    mixed : {Carrier : Set} →
+            {M : Carrier → Set} →
             ((Carrier A : Set) →
               (M : Carrier → Set) →
               (∀ (x : Carrier) → M x → A) →
@@ -130,10 +131,12 @@ module 2-5-1-d where
               A) →
             ⊥
 
-    mixed {Carrier} {A} prf = {!!}
+    mixed {Carrier} {M} prf = {!!}
       where
-        lemma : (∀ (x : Carrier) → ⊥ → A) → (∀ (x : Carrier) → ⊥)
-        lemma = {!!}
+        lemma : (∀ (x : Carrier) → M x → ⊥) → (∀ (x : Carrier) → M x) → ⊥
+        lemma = prf Carrier ⊥ M
+
+        
         -- prf Carrier (λ _ → ¬ A) (λ (_ : Carrier) -> ⊥)
       
 
