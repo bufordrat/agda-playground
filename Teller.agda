@@ -116,7 +116,8 @@ module 2-5-1-d where
     -- in a just intuitionist world.
 
     --  Prove:
-    --   (∀x)(Mx → A) → (∀x)Mx → A
+    --   (∀x)(Mx → A)
+    --   (∀x)Mx → A
     --   --------
     --   ⊥
 
