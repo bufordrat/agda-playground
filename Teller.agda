@@ -130,14 +130,9 @@ module 2-5-1-d where
               -------------
               A
 
-    mixed : {Carrier A : Set₀} → {M : Carrier → Set₀} → 2-1-5-d → ⊥
-    mixed {Carrier} {A} {M} prf = a_is_bot (λ x → {!!}) {!!}
-      where
-        a_is_bot : (∀ (x : Carrier) → M x → ⊥) → 
-                   (∀ (x : Carrier) → M x) →
-                   -------------
-                   ⊥
-        a_is_bot = prf Carrier ⊥ M
+    nope : 2-1-5-d → ⊥
+    nope prf = prf ⊥ ⊥ ⊥-elim {!!} {!!}
+
 
         
 
