@@ -120,20 +120,26 @@ module 2-5-1-d where
     --   --------
     --   ⊥
 
-    -- LOL, this isn't working at all
+    -- LOL, this isn't working at all, what do I do...
 
     2-1-5-d : Set₁
-    2-1-5-d = (Carrier A : Set) →
-              (M : Carrier → Set) →
+    2-1-5-d = (Carrier A : Set₀) →
+              (M : Carrier → Set₀) →
               (∀ (x : Carrier) → M x → A) →
               (∀ (x : Carrier) → M x) →
+              -------------
               A
 
-    mixed : {Carrier : Set} {M : Carrier → Set} → 2-1-5-d → ⊥
-    mixed {Carrier} {M} prf = {!!}
+    mixed : {Carrier A : Set₀} → {M : Carrier → Set₀} → 2-1-5-d → ⊥
+    mixed {Carrier} {A} {M} prf = a_is_bot (λ x → {!!}) {!!}
       where
-        a_is_bot : (∀ (x : Carrier) → M x → ⊥) → (∀ (x : Carrier) → M x) → ⊥
+        a_is_bot : (∀ (x : Carrier) → M x → ⊥) → 
+                   (∀ (x : Carrier) → M x) →
+                   -------------
+                   ⊥
         a_is_bot = prf Carrier ⊥ M
+
+        
 
 module 2-5-1-h where
 
