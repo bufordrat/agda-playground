@@ -120,8 +120,6 @@ module 2-5-1-d where
     --   --------
     --   ⊥
 
-    -- LOL, this isn't working at all, what do I do...
-
     2-1-5-d : Set₁
     2-1-5-d = (Carrier A : Set₀) →
               (M : Carrier → Set₀) →
@@ -131,9 +129,13 @@ module 2-5-1-d where
               A
 
     nope : 2-1-5-d → ⊥
-    nope prf = prf ⊥ ⊥ ⊥-elim {!!} {!!}
-
-
+    nope prf = prf Carrier A M all_mx_a all_mx
+      where
+        Carrier = ⊥
+        A = ⊥
+        M = ⊥-elim
+        all_mx_a = λ x _ → ⊥-elim x
+        all_mx = λ x → ⊥-elim x
         
 
 module 2-5-1-h where
