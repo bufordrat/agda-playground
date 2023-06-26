@@ -134,8 +134,8 @@ module 2-5-1-d where
         Carrier = ⊥
         A = ⊥
         M = ⊥-elim
-        all_mx_a = λ x _ → ⊥-elim x
-        all_mx = λ x → ⊥-elim x
+        all_mx_a = λ x _ → M x
+        all_mx = λ x → M x
         
 
 module 2-5-1-h where
