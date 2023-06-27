@@ -338,6 +338,15 @@ module Metamath where
                   Σ Domain (λ x → ϕ)
   theorem-19-12 (x , yphi) y = (x , yphi y)
 
+  theorem-19-12' : ∀ {i j k} →
+                   {A : Set i} →
+                   {B : Set j} →
+                   {P : A → B → Set k} →
+                   ----------
+                   ∃[ x ] (∀ {y} → P x y) →
+                   ∀ {y} → ∃[ x ] P x y
+  theorem-19-12' = {!!}
+
   converse : Set₁
   converse = (Domain : Set₀) →
              (ϕ : Set₀) →
