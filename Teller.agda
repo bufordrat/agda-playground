@@ -16,24 +16,24 @@ module 2-5-1-a where
     --   --------n
     --   Pk
 
-    implicit : {Carrier : Set}
-               {k : Carrier} →
-               {P D : Carrier → Set} → 
-               (∀ (x : Carrier) → P x × D x) →
+    implicit : {Domain : Set}
+               {k : Domain} →
+               {P D : Domain → Set} → 
+               (∀ (x : Domain) → P x × D x) →
                -------------
                P k
 
     implicit prf with prf _
     ... | (pk , dk) = pk
 
-    explicit : (Carrier : Set)
-               (k : Carrier) →
-               (P D : Carrier → Set) → 
-               (∀ (x : Carrier) → P x × D x) →
+    explicit : (Domain : Set)
+               (k : Domain) →
+               (P D : Domain → Set) → 
+               (∀ (x : Domain) → P x × D x) →
                -------------
                P k
 
-    explicit Carrier k P D prf with prf k
+    explicit Domain k P D prf with prf k
     ... | (pk , dk) = pk
 
 
@@ -47,11 +47,11 @@ module 2-5-1-c where
     --   -------
     --   Ka
 
-    implicit : {Carrier : Set} →
-               {a : Carrier} →
-               {K D : Carrier → Set} → 
-               (∀ (x : Carrier) → D x → K x) →
-               (∀ (x : Carrier) → D x) →
+    implicit : {Domain : Set} →
+               {a : Domain} →
+               {K D : Domain → Set} → 
+               (∀ (x : Domain) → D x → K x) →
+               (∀ (x : Domain) → D x) →
                -------------
                K a
 
@@ -60,15 +60,15 @@ module 2-5-1-c where
              with (wide_prf _ , narrow_prf _)
     ... | (cond , da) = cond da
 
-    explicit : (Carrier : Set) →
-               (a : Carrier) →
-               (K D : Carrier → Set) → 
-               (∀ (x : Carrier) → D x → K x) →
-               (∀ (x : Carrier) → D x) →
+    explicit : (Domain : Set) →
+               (a : Domain) →
+               (K D : Domain → Set) → 
+               (∀ (x : Domain) → D x → K x) →
+               (∀ (x : Domain) → D x) →
                -------------
                K a
 
-    explicit Carrier
+    explicit Domain
              a
              K
              D
@@ -87,18 +87,18 @@ module 2-5-1-d-nonempty where
     --   --------
     --   (∀x)Mx → A
 
-    -- If you add the assumption that Carrier is inhabited, this
+    -- If you add the assumption that Domain is inhabited, this
     -- inference works.  Without it, see the next exercise!
     
-    explicit : (Carrier A : Set) →
-               (M : Carrier → Set) →
-               (wit : Carrier) →
-               (∀ (x : Carrier) → (M x → A)) →
-               (∀ (x : Carrier) → M x) →
+    explicit : (Domain A : Set) →
+               (M : Domain → Set) →
+               (wit : Domain) →
+               (∀ (x : Domain) → (M x → A)) →
+               (∀ (x : Domain) → M x) →
                -------------
                A
 
-    explicit Carrier A M wit wide_prf narrow_prf = a
+    explicit Domain A M wit wide_prf narrow_prf = a
       where
         m_wit_a : M wit → A
         m_wit_a = wide_prf wit
@@ -122,17 +122,17 @@ module 2-5-1-d where
     --   ⊥
 
     2-1-5-d : Set₁
-    2-1-5-d = (Carrier A : Set₀) →
-              (M : Carrier → Set₀) →
-              (∀ (x : Carrier) → M x → A) →
-              (∀ (x : Carrier) → M x) →
+    2-1-5-d = (Domain A : Set₀) →
+              (M : Domain → Set₀) →
+              (∀ (x : Domain) → M x → A) →
+              (∀ (x : Domain) → M x) →
               -------------
               A
 
     nope : 2-1-5-d → ⊥
-    nope prf = prf Carrier A M all_mx_a all_mx
+    nope prf = prf Domain A M all_mx_a all_mx
       where
-        Carrier = ⊥
+        Domain = ⊥
         A = ⊥
         M = ⊥-elim
         all_mx_a = λ x _ → M x
@@ -149,15 +149,15 @@ module 2-5-1-h where
     --   --------
     --   Rcc & Rff
 
-    explicit : (Carrier : Set) →
-               (R : Carrier → Carrier → Set) →
-               (c f k : Carrier) →
-               (∀ (x : Carrier) -> R x x ⊎ R x k) →
-               (∀ (y : Carrier) -> ¬ R y k) →
+    explicit : (Domain : Set) →
+               (R : Domain → Domain → Set) →
+               (c f k : Domain) →
+               (∀ (x : Domain) -> R x x ⊎ R x k) →
+               (∀ (y : Domain) -> ¬ R y k) →
                -------------
                R c c × R f f
 
-    explicit Carrier R c f k univ_disj univ_neg = conclusion
+    explicit Domain R c f k univ_disj univ_neg = conclusion
       where
         univ_disj_c : R c c ⊎ R c k
         univ_disj_c = univ_disj c
@@ -199,23 +199,23 @@ module 2-5-2-a where
     --   -------
     --   (∃x)(Nx ∨ Gx)
 
-    implicit : {Carrier : Set} →
-               {N G : Carrier → Set} →
-               {a : Carrier} →
+    implicit : {Domain : Set} →
+               {N G : Domain → Set} →
+               {a : Domain} →
                N a →
                -------------
                ∃[ x ] (N x ⊎ G x)
 
     implicit na = (_ , inj₁ na)
 
-    explicit : (Carrier : Set) →
-               (N G : Carrier → Set) →
-               (a : Carrier) →
+    explicit : (Domain : Set) →
+               (N G : Domain → Set) →
+               (a : Domain) →
                N a →
                -------------
                ∃[ x ] (N x ⊎ G x)
 
-    explicit Carrier N G a na = (a , inj₁ na)
+    explicit Domain N G a na = (a , inj₁ na)
 
 module 2-5-2-e where
 
@@ -226,10 +226,10 @@ module 2-5-2-e where
     --   -------
     --   (∃x)Fx ∨ (∃x)Nx
 
-    implicit : {Carrier : Set} →
-               {F N : Carrier → Set} →
-               {a : Carrier} → 
-               {h : Carrier} →
+    implicit : {Domain : Set} →
+               {F N : Domain → Set} →
+               {a : Domain} → 
+               {h : Domain} →
                F a ⊎ N h →
                -------------
                ∃[ x ] F x ⊎ ∃[ x ] N x
@@ -237,16 +237,16 @@ module 2-5-2-e where
     implicit (inj₁ fa) = inj₁ (_ , fa)
     implicit (inj₂ nh) = inj₂ (_ , nh)
 
-    explicit : (Carrier : Set) →
-               (F N : Carrier → Set) →
-               (a : Carrier) → 
-               (h : Carrier) →
+    explicit : (Domain : Set) →
+               (F N : Domain → Set) →
+               (a : Domain) → 
+               (h : Domain) →
                F a ⊎ N h →
                -------------
                ∃[ x ] F x ⊎ ∃[ x ] N x
 
-    explicit Carrier F N a h (inj₁ fa) = inj₁ (a , fa)
-    explicit Carrier F N a h (inj₂ nh) = inj₂ (h , nh)
+    explicit Domain F N a h (inj₁ fa) = inj₁ (a , fa)
+    explicit Domain F N a h (inj₂ nh) = inj₂ (h , nh)
 
 
 
@@ -260,21 +260,21 @@ module 2-5-2-g where
     --   -------
     --   (∃x)Rax
 
-    explicit : (Carrier : Set) →
-               (R : Carrier → Carrier → Set) →
-               (a : Carrier) →
-               (e : Carrier) →
-               (∃[ x ] R x a -> ∀ (x : Carrier) → R a x) →
+    explicit : (Domain : Set) →
+               (R : Domain → Domain → Set) →
+               (a : Domain) →
+               (e : Domain) →
+               (∃[ x ] R x a -> ∀ (x : Domain) → R a x) →
                R e a →
                -------------
                ∃[ x ] R a x
 
-    explicit Carrier R a e ex_to_univ rea = ex_rae
+    explicit Domain R a e ex_to_univ rea = ex_rae
       where
         ex_rea : ∃[ x ] R x a
         ex_rea = (e , rea)
 
-        univ : ∀ (x : Carrier) → R a x
+        univ : ∀ (x : Domain) → R a x
         univ = ex_to_univ ex_rea
 
         rae : R a e
@@ -294,40 +294,64 @@ module 2-5-2-i where
     --   -------
     --   Q
 
-    implicit : {Carrier : Set} →
-               {J : Carrier → Set} →
+    implicit : {Domain : Set} →
+               {J : Domain → Set} →
                {Q : Set} →
                ∃[ x ] (J x → Q) →
                -------------
-               (∀ (x : Carrier) → J x) →
+               (∀ (x : Domain) → J x) →
                Q
 
     implicit (wit , cond) univ =
       cond (univ wit)
 
-    explicit : (Carrier : Set) →
-               (J : Carrier → Set) →
+    explicit : (Domain : Set) →
+               (J : Domain → Set) →
                (Q : Set) →
                ∃[ x ] (J x → Q) →
                -------------
-               (∀ (x : Carrier) → J x) →
+               (∀ (x : Domain) → J x) →
                Q
 
-    explicit Carrier J Q (wit , cond) univ =
+    explicit Domain J Q (wit , cond) univ =
       cond (univ wit)
 
 
 module Metamath where
 
-  theorem-19-12 : {Carrier : Set} →
+  -- Metamath Existential Quantifier Swap
+  -- https://us.metamath.org/ileuni/19.12.html
+
+  -- Prove:
+  --   ∃x ∀y ϕ
+  --   -------
+  --   ∀y ∃x ϕ
+
+  -- Shouldn't this be called "Existential Quantifier Push-in"?  That
+  -- phrasing emphasizes the asymmetry of the rule.
+
+  theorem-19-12 : {Domain : Set} →
                   {ϕ : Set} →
-                  Σ Carrier (λ x → (∀ (y : Carrier) → ϕ)) →
-                  ∀ (y : Carrier) →
+                  Σ Domain (λ x → (∀ (y : Domain) → ϕ)) →
+                  ∀ (y : Domain) →
                   -------------
-                  Σ Carrier (λ x → ϕ)
+                  Σ Domain (λ x → ϕ)
   theorem-19-12 (x , yphi) y = (x , yphi y)
 
-  -- converse-is-bad : {Carrier : Set} →
-  --                   {ϕ : Set} →
-  --                   ∀ (y : Carrier) → Σ Carrier (λ 
-    
+  converse : Set₁
+  converse = (Domain : Set₀) →
+             (ϕ : Set₀) →
+             (∀ (y : Domain) → Σ Domain (λ x → ϕ)) →
+             -------------
+             (Σ Domain (λ x → ∀ (y : Domain) → ϕ))
+
+  converse-is-bad : converse → ⊥
+  converse-is-bad prf = destruct univ_narrow
+    where
+      Domain = ⊥
+      ϕ = ⊥
+      univ_wide = ⊥-elim
+      univ_narrow_type = Σ Domain (λ x → ∀ (y : Domain) → ϕ)
+      univ_narrow = prf Domain ϕ univ_wide
+      destruct : univ_narrow_type → ⊥
+      destruct (wit , all_phi) = all_phi wit
