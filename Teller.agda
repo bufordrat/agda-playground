@@ -137,7 +137,7 @@ module 2-5-1-d where
         M = ⊥-elim
         all_mx_a = λ x _ → M x
         all_mx = λ x → M x
-        
+
 
 module 2-5-1-h where
 
@@ -316,3 +316,18 @@ module 2-5-2-i where
     explicit Carrier J Q (wit , cond) univ =
       cond (univ wit)
 
+
+module Metamath where
+
+  theorem-19-12 : {Carrier : Set} →
+                  {ϕ : Set} →
+                  Σ Carrier (λ x → (∀ (y : Carrier) → ϕ)) →
+                  ∀ (y : Carrier) →
+                  -------------
+                  Σ Carrier (λ x → ϕ)
+  theorem-19-12 (x , yphi) y = (x , yphi y)
+
+  -- converse-is-bad : {Carrier : Set} →
+  --                   {ϕ : Set} →
+  --                   ∀ (y : Carrier) → Σ Carrier (λ 
+    
