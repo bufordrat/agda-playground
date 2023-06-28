@@ -345,7 +345,6 @@ module Metamath where
                    ----------
                    ∃[ x ] (∀ (y : B) → P x y) →
                    ∀ (y : B) → ∃[ x ] P x y
-             
   theorem-19-12' (x , y_pxy) y = (x , y_pxy y)
 
   converse : Set₁
