@@ -4,6 +4,7 @@ open import Data.Product
 open import Data.Sum
 open import Relation.Nullary
 open import Data.Empty
+open import Agda.Primitive
 
 
 
@@ -343,17 +344,18 @@ module Metamath where
                    {B : Set j} →
                    {P : A → B → Set k} →
                    ----------
-                   ∃[ x ] (∀ (y : B) → P x y) →
-                   ∀ (y : B) → ∃[ x ] P x y
-  theorem-19-12' (x , y_pxy) y = (x , y_pxy y)
+                   ∃[ x ] (∀ {y} → P x y) →
+                   ∀ {y} → ∃[ x ] P x y
+  theorem-19-12' (x , y_pxy) = (x , y_pxy)
 
-  converse : Set₁
-  converse = (Domain : Set₀) →
-             (ϕ : Set₀) →
-             (∀ (y : Domain) →
-             Σ Domain (λ x → ϕ)) →
-             -------------
-             (Σ Domain (λ x → ∀ (y : Domain) → ϕ))
+  -- converse : Set uhh-max-of-ijk-or-something
+  -- converse = ∀ {i j k} →
+  --            {A : Set i} →
+  --            {B : Set j} →
+  --            {P : A → B → Set k} →
+  --            ----------
+  --            ∀ {y} → ∃[ x ] P x y →
+  --            ∃[ x ] (∀ {y} → P x y)
 
   converse-is-bad : converse → ⊥
   converse-is-bad prf = destruct univ_narrow
