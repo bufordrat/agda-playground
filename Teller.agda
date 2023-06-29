@@ -317,6 +317,36 @@ module 2-5-2-i where
     explicit Domain J Q (wit , cond) univ =
       cond (univ wit)
 
+module 2-6-1-p where
+
+  -- Teller Volume 2, Chap. 6, exercise 1p
+
+  -- Prove:
+  --   (∀x)Px → (∀x)Qx
+  --   ------------------
+  --   (∃x)(∀y)(Px → Qy)
+
+  -- the infamous buttpain exercise
+
+  -- 2-6-1-p : Set₁
+  -- 2-6-1-p = (Domain : Set₀) →
+  --           (P : Domain → Set₀) →
+  --           (Q : Domain → Set₀) →
+  --           (∀ (x : Domain) → P x) →
+  --           (∀ (y : Domain) → Q y) →
+  --           -------------------------
+  --           Σ Domain (λ x → (∀ (y : Domain) → P x → Q y))
+
+  -- nope : 2-6-1-p → ⊥
+  -- nope prf = {!!}
+  --   where
+  --     Domain = ⊥
+  --     P = ⊥-elim
+  --     Q = ⊥-elim
+  --     univ_p : ∀ (x : ⊥) → ⊥
+  --     univ_p = ⊥-elim
+  --     conc : Σ Domain (λ (x : ⊥) → ⊥ → ⊥ → ⊥)
+  --     conc = prf Domain univ_p ? ?
 
 module Metamath where
 
@@ -367,3 +397,4 @@ module Metamath where
   --     univ_narrow = prf Domain ϕ univ_wide
   --     destruct : univ_narrow_type → ⊥
   --     destruct (wit , all_phi) = all_phi wit
+
