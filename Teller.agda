@@ -357,13 +357,13 @@ module Metamath where
   --            ∀ {y} → ∃[ x ] P x y →
   --            ∃[ x ] (∀ {y} → P x y)
 
-  converse-is-bad : converse → ⊥
-  converse-is-bad prf = destruct univ_narrow
-    where
-      Domain = ⊥
-      ϕ = ⊥
-      univ_wide = ⊥-elim
-      univ_narrow_type = Σ Domain (λ x → ∀ (y : Domain) → ϕ)
-      univ_narrow = prf Domain ϕ univ_wide
-      destruct : univ_narrow_type → ⊥
-      destruct (wit , all_phi) = all_phi wit
+  -- converse-is-bad : converse → ⊥
+  -- converse-is-bad prf = destruct univ_narrow
+  --   where
+  --     Domain = ⊥
+  --     ϕ = ⊥
+  --     univ_wide = ⊥-elim
+  --     univ_narrow_type = Σ Domain (λ x → ∀ (y : Domain) → ϕ)
+  --     univ_narrow = prf Domain ϕ univ_wide
+  --     destruct : univ_narrow_type → ⊥
+  --     destruct (wit , all_phi) = all_phi wit
