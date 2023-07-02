@@ -338,15 +338,19 @@ module 2-6-1-p where
   --           Σ Domain (λ x → (∀ (y : Domain) → P x → Q y))
 
   -- nope : 2-6-1-p → ⊥
-  -- nope prf = {!!}
+  -- nope prf = destruct conc
   --   where
   --     Domain = ⊥
   --     P = ⊥-elim
   --     Q = ⊥-elim
-  --     univ_p : ∀ (x : ⊥) → ⊥
-  --     univ_p = ⊥-elim
-  --     conc : Σ Domain (λ (x : ⊥) → ⊥ → ⊥ → ⊥)
-  --     conc = prf Domain univ_p ? ?
+  --     univ_p : ∀ (x : Domain) → P x
+  --     univ_p = λ x → ⊥-elim x
+  --     univ_q : ∀ (y : Domain) → Q y
+  --     univ_q = λ y → ⊥-elim y
+  --     conc_type = Σ Domain (λ x → ∀ (y : Domain) → P x → Q y)
+  --     conc : conc_type
+  --     conc = prf Domain P Q univ_p univ_q
+
 
 module Metamath where
 
