@@ -17,7 +17,8 @@ module 2-5-1-a where
     --   --------n
     --   Pk
 
-    implicit : {Domain : Set}
+    implicit : ∀ {i : Level} →
+               {Domain : Set i}
                {k : Domain} →
                {P D : Domain → Set} → 
                (∀ (x : Domain) → P x × D x) →
@@ -27,14 +28,15 @@ module 2-5-1-a where
     implicit prf with prf _
     ... | (pk , dk) = pk
 
-    explicit : (Domain : Set)
+    explicit : ∀ (i : Level) →
+               (Domain : Set i)
                (k : Domain) →
-               (P D : Domain → Set) → 
+               (P D : Domain → Set i) → 
                (∀ (x : Domain) → P x × D x) →
                -------------
                P k
 
-    explicit Domain k P D prf with prf k
+    explicit i Domain k P D prf with prf k
     ... | (pk , dk) = pk
 
 
@@ -48,9 +50,10 @@ module 2-5-1-c where
     --   -------
     --   Ka
 
-    implicit : {Domain : Set} →
+    implicit : ∀ {i : Level} →
+               {Domain : Set i} →
                {a : Domain} →
-               {K D : Domain → Set} → 
+               {K D : Domain → Set i} → 
                (∀ (x : Domain) → D x → K x) →
                (∀ (x : Domain) → D x) →
                -------------
@@ -61,15 +64,17 @@ module 2-5-1-c where
              with (wide_prf _ , narrow_prf _)
     ... | (cond , da) = cond da
 
-    explicit : (Domain : Set) →
+    explicit : ∀ (i : Level) →
+               (Domain : Set i) →
                (a : Domain) →
-               (K D : Domain → Set) → 
+               (K D : Domain → Set i) → 
                (∀ (x : Domain) → D x → K x) →
                (∀ (x : Domain) → D x) →
                -------------
                K a
 
     explicit Domain
+             i
              a
              K
              D
@@ -91,15 +96,16 @@ module 2-5-1-d-nonempty where
     -- If you add the assumption that Domain is inhabited, this
     -- inference works.  Without it, see the next exercise!
     
-    explicit : (Domain A : Set) →
-               (M : Domain → Set) →
+    explicit : ∀ (i : Level) →
+               (Domain A : Set i) →
+               (M : Domain → Set i) →
                (wit : Domain) →
                (∀ (x : Domain) → (M x → A)) →
                (∀ (x : Domain) → M x) →
                -------------
                A
 
-    explicit Domain A M wit wide_prf narrow_prf = a
+    explicit i Domain A M wit wide_prf narrow_prf = a
       where
         m_wit_a : M wit → A
         m_wit_a = wide_prf wit
@@ -123,8 +129,8 @@ module 2-5-1-d where
     --   ⊥
 
     2-1-5-d : Set₁
-    2-1-5-d = (Domain A : Set₀) →
-              (M : Domain → Set₀) →
+    2-1-5-d = (Domain A : Set) →
+              (M : Domain → Set) →
               (∀ (x : Domain) → M x → A) →
               (∀ (x : Domain) → M x) →
               -------------
