@@ -128,22 +128,22 @@ module 2-5-1-d where
     --   --------
     --   ⊥
 
-    2-1-5-d : Set₁
-    2-1-5-d = (Domain A : Set) →
-              (M : Domain → Set) →
-              (∀ (x : Domain) → M x → A) →
-              (∀ (x : Domain) → M x) →
-              -------------
-              A
+    -- 2-1-5-d : (i j : Level) → Set (lsuc (i ⊔ j))
+    -- 2-1-5-d i j = (Domain A : Set i) →
+    --               (M : Domain → Set j) →
+    --               (∀ (x : Domain) → M x → A) →
+    --               (∀ (x : Domain) → M x) →
+    --               -------------
+    --               A
 
-    nope : 2-1-5-d → ⊥
-    nope prf = prf Domain A M all_mx_a all_mx
-      where
-        Domain = ⊥
-        A = ⊥
-        M = ⊥-elim
-        all_mx_a = λ x _ → M x
-        all_mx = λ x → M x
+    -- nope : (i j : Level) → 2-1-5-d → ⊥
+    -- nope i j prf = prf Domain i j A M all_mx_a all_mx
+    --   where
+    --     Domain = ⊥
+    --     A = ⊥
+    --     M = ⊥-elim
+    --     all_mx_a = λ x _ → M x
+    --     all_mx = λ x → M x
 
 
 module 2-5-1-h where
@@ -156,15 +156,16 @@ module 2-5-1-h where
     --   --------
     --   Rcc & Rff
 
-    explicit : (Domain : Set) →
-               (R : Domain → Domain → Set) →
+    explicit : (i j : Level) →
+               (Domain : Set i) →
+               (R : Domain → Domain → Set j) →
                (c f k : Domain) →
                (∀ (x : Domain) -> R x x ⊎ R x k) →
                (∀ (y : Domain) -> ¬ R y k) →
                -------------
                R c c × R f f
 
-    explicit Domain R c f k univ_disj univ_neg = conclusion
+    explicit i j Domain R c f k univ_disj univ_neg = conclusion
       where
         univ_disj_c : R c c ⊎ R c k
         univ_disj_c = univ_disj c
@@ -206,8 +207,10 @@ module 2-5-2-a where
     --   -------
     --   (∃x)(Nx ∨ Gx)
 
-    implicit : {Domain : Set} →
-               {N G : Domain → Set} →
+    implicit : ∀ {i j k : Level} →
+               {Domain : Set i} →
+               {N : Domain → Set j} →
+               {G : Domain → Set k} →
                {a : Domain} →
                N a →
                -------------
@@ -215,14 +218,16 @@ module 2-5-2-a where
 
     implicit na = (_ , inj₁ na)
 
-    explicit : (Domain : Set) →
-               (N G : Domain → Set) →
+    explicit : ∀ (i j k : Level) →
+               (Domain : Set i) →
+               (N : Domain → Set j) →
+               (G : Domain → Set k) →
                (a : Domain) →
                N a →
                -------------
                ∃[ x ] (N x ⊎ G x)
 
-    explicit Domain N G a na = (a , inj₁ na)
+    explicit i j k Domain N G a na = (a , inj₁ na)
 
 module 2-5-2-e where
 
@@ -233,8 +238,10 @@ module 2-5-2-e where
     --   -------
     --   (∃x)Fx ∨ (∃x)Nx
 
-    implicit : {Domain : Set} →
-               {F N : Domain → Set} →
+    implicit : ∀ {i j k : Level} → 
+               {Domain : Set i} →
+               {F : Domain → Set j} →
+               {N : Domain → Set k} →
                {a : Domain} → 
                {h : Domain} →
                F a ⊎ N h →
@@ -244,16 +251,17 @@ module 2-5-2-e where
     implicit (inj₁ fa) = inj₁ (_ , fa)
     implicit (inj₂ nh) = inj₂ (_ , nh)
 
-    explicit : (Domain : Set) →
-               (F N : Domain → Set) →
+    explicit : ∀ (i j : Level) → 
+               (Domain : Set i) →
+               (F N : Domain → Set j) →
                (a : Domain) → 
                (h : Domain) →
                F a ⊎ N h →
                -------------
                ∃[ x ] F x ⊎ ∃[ x ] N x
 
-    explicit Domain F N a h (inj₁ fa) = inj₁ (a , fa)
-    explicit Domain F N a h (inj₂ nh) = inj₂ (h , nh)
+    explicit i j Domain F N a h (inj₁ fa) = inj₁ (a , fa)
+    explicit i j Domain F N a h (inj₂ nh) = inj₂ (h , nh)
 
 
 
@@ -267,8 +275,9 @@ module 2-5-2-g where
     --   -------
     --   (∃x)Rax
 
-    explicit : (Domain : Set) →
-               (R : Domain → Domain → Set) →
+    explicit : ∀ (i j : Level) →
+               (Domain : Set i) →
+               (R : Domain → Domain → Set j) →
                (a : Domain) →
                (e : Domain) →
                (∃[ x ] R x a -> ∀ (x : Domain) → R a x) →
@@ -276,7 +285,7 @@ module 2-5-2-g where
                -------------
                ∃[ x ] R a x
 
-    explicit Domain R a e ex_to_univ rea = ex_rae
+    explicit i j Domain R a e ex_to_univ rea = ex_rae
       where
         ex_rea : ∃[ x ] R x a
         ex_rea = (e , rea)
@@ -301,26 +310,28 @@ module 2-5-2-i where
     --   -------
     --   Q
 
-    implicit : {Domain : Set} →
-               {J : Domain → Set} →
-               {Q : Set} →
+    implicit : ∀ {i j k : Level} →
+               {Domain : Set i} →
+               {J : Domain → Set j} →
+               {Q : Set k} →
                ∃[ x ] (J x → Q) →
-               -------------
                (∀ (x : Domain) → J x) →
+               -------------
                Q
 
     implicit (wit , cond) univ =
       cond (univ wit)
 
-    explicit : (Domain : Set) →
-               (J : Domain → Set) →
-               (Q : Set) →
+    explicit : ∀ (i j k : Level) → 
+               (Domain : Set i) →
+               (J : Domain → Set j) →
+               (Q : Set k) →
                ∃[ x ] (J x → Q) →
-               -------------
                (∀ (x : Domain) → J x) →
+               -------------
                Q
 
-    explicit Domain J Q (wit , cond) univ =
+    explicit i j k Domain J Q (wit , cond) univ =
       cond (univ wit)
 
 module 2-6-1-p where
@@ -388,23 +399,24 @@ module Metamath where
                    ∀ {y} → ∃[ x ] P x y
   theorem-19-12' (x , y_pxy) = (x , y_pxy)
 
-  -- converse : Set uhh-max-of-ijk-or-something
-  -- converse = ∀ {i j k} →
-  --            {A : Set i} →
-  --            {B : Set j} →
-  --            {P : A → B → Set k} →
-  --            ----------
-  --            ∀ {y} → ∃[ x ] P x y →
-  --            ∃[ x ] (∀ {y} → P x y)
+  converse : (i j k : Level) → Set (lsuc (i ⊔ j ⊔ k))
+  converse i j k = {A : Set i} →
+                   {B : Set j} →
+                   {P : A → B → Set k} →
+                   ----------
+                   ∀ {y} → ∃[ x ] P x y →
+                   ∃[ x ] (∀ {y} → P x y)
 
-  -- converse-is-bad : converse → ⊥
-  -- converse-is-bad prf = destruct univ_narrow
+  -- converse-is-bad : (i j k : Level) → converse → ⊥
+  -- converse-is-bad i j k prf = destruct univ_narrow
   --   where
-  --     Domain = ⊥
-  --     ϕ = ⊥
+  --     A = ⊥
+  --     B = ⊥
+  --     P = λ x _ → ⊥-elim
   --     univ_wide = ⊥-elim
-  --     univ_narrow_type = Σ Domain (λ x → ∀ (y : Domain) → ϕ)
-  --     univ_narrow = prf Domain ϕ univ_wide
+  --     univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
+  --     univ_narrow : univ_narrow_type
+  --     univ_narrow = prf i j k A B P univ_wide
   --     destruct : univ_narrow_type → ⊥
   --     destruct (wit , all_phi) = all_phi wit
 
