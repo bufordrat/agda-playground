@@ -407,16 +407,16 @@ module Metamath where
                    ∀ {y} → ∃[ x ] P x y →
                    ∃[ x ] (∀ {y} → P x y)
 
-  -- converse-is-bad : (i j k : Level) → converse → ⊥
-  -- converse-is-bad i j k prf = destruct univ_narrow
-  --   where
-  --     A = ⊥
-  --     B = ⊥
-  --     P = λ x _ → ⊥-elim
-  --     univ_wide = ⊥-elim
-  --     univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
-  --     univ_narrow : univ_narrow_type
-  --     univ_narrow = prf i j k A B P univ_wide
-  --     destruct : univ_narrow_type → ⊥
-  --     destruct (wit , all_phi) = all_phi wit
+  converse-is-bad : (i j k : Level) → converse → ⊥
+  converse-is-bad i j k prf = ?
+    where
+      A = ⊥
+      B = ⊥
+      P = λ _ → ⊥-elim
+      univ_wide = ⊥-elim
+      univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
+      univ_narrow : univ_narrow_type
+      univ_narrow = prf i j k A B P univ_wide
+      destruct : univ_narrow_type → ⊥
+      destruct (wit , all_phi) = all_phi wit
 
