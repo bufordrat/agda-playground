@@ -399,7 +399,7 @@ module Metamath where
                    ∀ {y} → ∃[ x ] P x y
   theorem-19-12' (x , y_pxy) = (x , y_pxy)
 
-  converse : (i j k : Level) → Set (lsuc (i ⊔ j ⊔ k))
+  converse : ∀ (i j k : Level) → Set (lsuc (i ⊔ j ⊔ k))
   converse i j k = {A : Set i} →
                    {B : Set j} →
                    {P : A → B → Set k} →
