@@ -399,24 +399,24 @@ module Metamath where
                    ∀ {y} → ∃[ x ] P x y
   theorem-19-12' (x , y_pxy) = (x , y_pxy)
 
-  converse : ∀ (i j k : Level) → Set (lsuc (i ⊔ j ⊔ k))
-  converse i j k = {A : Set i} →
-                   {B : Set j} →
-                   {P : A → B → Set k} →
-                   ----------
-                   ∀ {y} → ∃[ x ] P x y →
-                   ∃[ x ] (∀ {y} → P x y)
+  converse : ∀ {i j k} → Set (lsuc (i ⊔ j ⊔ k))
+  converse {i} {j} {k} = {A : Set i} →
+                         {B : Set j} →
+                         {P : A → B → Set k} →
+                         ----------
+                         ∀ {y} → ∃[ x ] P x y →
+                         ∃[ x ] (∀ {y} → P x y)
 
-  converse-is-bad : (i j k : Level) → converse → ⊥
-  converse-is-bad i j k prf = ?
-    where
-      A = ⊥
-      B = ⊥
-      P = λ _ → ⊥-elim
-      univ_wide = ⊥-elim
-      univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
-      univ_narrow : univ_narrow_type
-      univ_narrow = prf i j k A B P univ_wide
-      destruct : univ_narrow_type → ⊥
-      destruct (wit , all_phi) = all_phi wit
+  converse-is-bad : ∀ {i j k : Level} → converse → ⊥
+  converse-is-bad {i} {j} {k} prf = {!!}
+    -- where
+    --   A = ⊥
+    --   B = ⊥
+    --   P = λ _ → ⊥-elim
+    --   univ_wide = ⊥-elim
+    --   univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
+    --   univ_narrow : univ_narrow_type
+    --   univ_narrow = prf {i} {j} {k} A B P univ_wide
+    --   destruct : univ_narrow_type → ⊥
+    --   destruct (wit , all_phi) = all_phi wit
 
