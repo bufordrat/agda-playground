@@ -4,9 +4,8 @@ open import Data.Product
 open import Data.Sum
 open import Relation.Nullary
 open import Data.Empty
-open import Agda.Primitive
-
-
+-- open import Agda.Primitive
+open import Level
 
 module 2-5-1-a where
 
@@ -14,7 +13,7 @@ module 2-5-1-a where
 
     --  Prove:
     --   (∀x)(Px & Dx)
-    --   --------n
+    --   --------
     --   Pk
 
     implicit : ∀ {i : Level} →
@@ -128,7 +127,7 @@ module 2-5-1-d where
     --   --------
     --   ⊥
 
-    -- 2-1-5-d : (i j : Level) → Set (lsuc (i ⊔ j))
+    -- 2-1-5-d : (i j : Level) → Set (suc (i ⊔ j))
     -- 2-1-5-d i j = (Domain A : Set i) →
     --               (M : Domain → Set j) →
     --               (∀ (x : Domain) → M x → A) →
@@ -399,7 +398,7 @@ module Metamath where
                    ∀ {y} → ∃[ x ] P x y
   theorem-19-12' (x , y_pxy) = (x , y_pxy)
 
-  converse : ∀ {i j k} → Set (lsuc (i ⊔ j ⊔ k))
+  converse : ∀ {i j k} → Set (suc (i ⊔ j ⊔ k))
   converse {i} {j} {k} = {A : Set i} →
                          {B : Set j} →
                          {P : A → B → Set k} →
@@ -407,16 +406,18 @@ module Metamath where
                          ∀ {y} → ∃[ x ] P x y →
                          ∃[ x ] (∀ {y} → P x y)
 
-  converse-is-bad : ∀ {i j k : Level} → converse → ⊥
+  converse-is-bad : ∀ {i j k : Level} → converse {i} {j} {k} → ⊥
   converse-is-bad {i} {j} {k} prf = {!!}
-    -- where
-    --   A = ⊥
-    --   B = ⊥
-    --   P = λ _ → ⊥-elim
-    --   univ_wide = ⊥-elim
-    --   univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
-    --   univ_narrow : univ_narrow_type
-    --   univ_narrow = prf {i} {j} {k} A B P univ_wide
-    --   destruct : univ_narrow_type → ⊥
-    --   destruct (wit , all_phi) = all_phi wit
+    where
+      A = Lift i ⊥ 
+      B = Lift j ⊥
+      P : A → B → Set (suc (i ⊔ j))
+      P a (lift b_bot) = ⊥-elim b_bot
+
+   -- univ_wide = ⊥-elim
+      -- univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
+      -- univ_narrow : univ_narrow_type
+      -- univ_narrow = prf {i} {j} {k} A B P univ_wide
+      -- destruct : univ_narrow_type → ⊥
+      -- destruct (wit , all_phi) = all_phi wit
 
