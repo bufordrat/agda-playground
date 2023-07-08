@@ -6,6 +6,7 @@ open import Relation.Nullary
 open import Data.Empty
 -- open import Agda.Primitive
 open import Level
+-- open import Data.Empty.Polymorphic
 
 module 2-5-1-a where
 
@@ -398,7 +399,7 @@ module Metamath where
                    ∀ {y} → ∃[ x ] P x y
   theorem-19-12' (x , y_pxy) = (x , y_pxy)
 
-  converse : ∀ {i j k} → Set (suc (i ⊔ j ⊔ k))
+  converse : ∀ {i j k : Level} → Set (suc (i ⊔ j ⊔ k))
   converse {i} {j} {k} = {A : Set i} →
                          {B : Set j} →
                          {P : A → B → Set k} →
@@ -412,12 +413,13 @@ module Metamath where
       A = Lift i ⊥ 
       B = Lift j ⊥
       P : A → B → Set (suc (i ⊔ j))
-      P a (lift b_bot) = ⊥-elim b_bot
-
-   -- univ_wide = ⊥-elim
+      -- P = λ x → ⊥-elim {k}
+      P a (lift j_bot) = ⊥-elim j_bot
+      univ_wide : ∀ {y} → ∃[ x ] P x y
+      univ_wide {y@(lift j_bot)} = (lift j_bot , Lift (suc (i ⊔ j)) (P y y))
       -- univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
       -- univ_narrow : univ_narrow_type
-      -- univ_narrow = prf {i} {j} {k} A B P univ_wide
+      -- univ_narrow = prf A B P univ_wide
       -- destruct : univ_narrow_type → ⊥
       -- destruct (wit , all_phi) = all_phi wit
 
