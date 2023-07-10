@@ -420,9 +420,9 @@ module Metamath where
   --     destruct (wit , all_phi) = all_phi wit
 
   converse : ∀ {i j k : Level} → Set (suc (i ⊔ j ⊔ k))
-  converse {i} {j} {k} = {A : Set i} →
-                         {B : Set j} →
-                         {P : A → B → Set k} →
+  converse {i} {j} {k} = (A : Set i) →
+                         (B : Set j) →
+                         (P : A → B → Set k) →
                          ∀ {y} → ∃[ x ] P x y →
                          ----------
                          ∃[ x ] (∀ {y} → P x y)
@@ -432,11 +432,12 @@ module Metamath where
     where
       A = Lift i ⊥ 
       B = Lift j ⊥
-      P : A → B → Set (suc (i ⊔ j))
+      P : A → B → Set (suc (i ⊔ j ⊔ k))
       P a (lift j_bot) = ⊥-elim j_bot
       univ_wide : ∀ {y} → ∃[ x ] P x y
       univ_wide {lift j_bot} = ⊥-elim j_bot
       univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
+      -- stuck here
       -- univ_narrow : univ_narrow_type
       -- univ_narrow = prf A B P univ_wide
 
