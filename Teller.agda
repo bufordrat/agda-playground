@@ -399,12 +399,32 @@ module Metamath where
                    ∀ {y} → ∃[ x ] P x y
   theorem-19-12' (x , y_pxy) = (x , y_pxy)
 
+  -- old version
+  -- converse : Set₁
+  -- converse = (Domain : Set₀) →
+  --            (ϕ : Set₀) →
+  --            (∀ (y : Domain) →
+  --            Σ Domain (λ x → ϕ)) →
+  --            -------------
+  --            (Σ Domain (λ x → ∀ (y : Domain) → ϕ))
+
+  -- converse-is-bad : converse → ⊥
+  -- converse-is-bad prf = destruct univ_narrow
+  --   where
+  --     Domain = ⊥
+  --     ϕ = ⊥
+  --     univ_wide = ⊥-elim
+  --     univ_narrow_type = Σ Domain (λ x → ∀ (y : Domain) → ϕ)
+  --     univ_narrow = prf Domain ϕ univ_wide
+  --     destruct : univ_narrow_type → ⊥
+  --     destruct (wit , all_phi) = all_phi wit
+
   converse : ∀ {i j k : Level} → Set (suc (i ⊔ j ⊔ k))
   converse {i} {j} {k} = {A : Set i} →
                          {B : Set j} →
                          {P : A → B → Set k} →
-                         ----------
                          ∀ {y} → ∃[ x ] P x y →
+                         ----------
                          ∃[ x ] (∀ {y} → P x y)
 
   converse-is-bad : ∀ {i j k : Level} → converse {i} {j} {k} → ⊥
@@ -413,10 +433,13 @@ module Metamath where
       A = Lift i ⊥ 
       B = Lift j ⊥
       P : A → B → Set (suc (i ⊔ j))
-      -- P = λ x → ⊥-elim {k}
       P a (lift j_bot) = ⊥-elim j_bot
       univ_wide : ∀ {y} → ∃[ x ] P x y
-      univ_wide {y@(lift j_bot)} = (lift j_bot , Lift (suc (i ⊔ j)) (P y y))
+      univ_wide {lift j_bot} = ⊥-elim j_bot
+      univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
+      -- univ_narrow : univ_narrow_type
+      -- univ_narrow = prf A B P univ_wide
+
       -- univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
       -- univ_narrow : univ_narrow_type
       -- univ_narrow = prf A B P univ_wide
