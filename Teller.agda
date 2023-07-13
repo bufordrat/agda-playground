@@ -446,3 +446,4 @@ module Metamath where
       -- destruct : univ_narrow_type → ⊥
       -- destruct (wit , all_phi) = all_phi wit
 
+ 
