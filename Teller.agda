@@ -430,19 +430,21 @@ module Metamath where
   converse-is-bad : ∀ {i j k : Level} → converse {i} {j} {k} → ⊥
   converse-is-bad {i} {j} {k} prf = {!!}
     where
-      A = Lift i ⊥ 
+      A : Set i
+      A = Lift i ⊥
+      B : Set j
       B = Lift j ⊥
-      P : A → B → Set (suc (i ⊔ j ⊔ k))
+      P : A → B → Set k
       P a (lift j_bot) = ⊥-elim j_bot
       univ_wide : ∀ {y} → ∃[ x ] P x y
       univ_wide {lift j_bot} = ⊥-elim j_bot
       univ_narrow_type = Σ A (λ x → ∀ {y : B} → P x y)
       -- stuck here
-      -- univ_narrow : univ_narrow_type
-      -- univ_narrow = prf A B P univ_wide
+      univ_narrow : univ_narrow_type
+      univ_narrow = prf A B P univ_wide
 
+      -- old draft code
       -- univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
-
       -- destruct : univ_narrow_type → ⊥
       -- destruct (wit , all_phi) = all_phi wit
 
