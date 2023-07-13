@@ -436,14 +436,13 @@ module Metamath where
       P a (lift j_bot) = ⊥-elim j_bot
       univ_wide : ∀ {y} → ∃[ x ] P x y
       univ_wide {lift j_bot} = ⊥-elim j_bot
-      univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
+      univ_narrow_type = Σ A (λ x → ∀ {y : B} → P x y)
       -- stuck here
       -- univ_narrow : univ_narrow_type
       -- univ_narrow = prf A B P univ_wide
 
       -- univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
-      -- univ_narrow : univ_narrow_type
-      -- univ_narrow = prf A B P univ_wide
+
       -- destruct : univ_narrow_type → ⊥
       -- destruct (wit , all_phi) = all_phi wit
 
