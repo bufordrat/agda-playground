@@ -443,6 +443,6 @@ module Metamath where
       univ_narrow : univ_narrow_type
       univ_narrow = prf A B P univ_wide
       destruct : univ_narrow_type → ⊥
-      destruct (wit , all_phi) = all_phi wit
+      destruct (wit , all_phi) = all_phi {lift wit}
 
  
