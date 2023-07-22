@@ -8,9 +8,9 @@ private
     C : Set c
 
 data Maybe (A : Set) : Set where
- just : Maybe A
+ just : A → Maybe A
  nothing : Maybe A
 
 bind : (A B : Set) → Maybe A → (A → Maybe B) → Maybe B
-bind (just x) k = k x
-bind nothing = nothing
+bind A B (just x) k = k x
+bind A B nothing = nothing
