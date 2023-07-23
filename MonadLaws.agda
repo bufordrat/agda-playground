@@ -1,4 +1,11 @@
 open import Agda.Primitive
+open import Agda.Builtin.String
+open import Function.Base
+open import Agda.Builtin.Unit
+
+import Relation.Binary.PropositionalEquality as Eq
+open Eq
+open Eq.≡-Reasoning
 
 data Maybe (A : Set) : Set where
  just : A → Maybe A
@@ -14,3 +21,27 @@ _>>=_ = bind
 pure : {A : Set} → A → Maybe A
 pure x = just x
 
+-- confirm that do notation works
+x : Maybe String
+x = do
+  x <- just "hello"
+  pure x
+
+map : {A B : Set} → (A → B) → Maybe A → Maybe B
+map f (just x) = just (f x)
+map f nothing = nothing
+
+funct_id : (A B : Set) →
+           (a : Maybe A) →
+           (f : A → B) →
+           map id a ≡ id a
+funct_id A B (just j) f = refl
+funct_id A B nothing f = refl
+
+composition : (A B C : Set) →
+              (a : Maybe A) →
+              (f : B → C) →
+              (g : A → B) →
+              ⊤
+              -- map f (g a) ≡ map f (map g a)
+composition A B C a f g = {!!}
