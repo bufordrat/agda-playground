@@ -33,10 +33,9 @@ map f nothing = nothing
 
 funct_id : (A B : Set) →
            (a : Maybe A) →
-           (f : A → B) →
            map id a ≡ id a
-funct_id A B (just j) f = refl
-funct_id A B nothing f = refl
+funct_id A B (just j) = refl
+funct_id A B nothing = refl
 
 composition : (A B C : Set) →
               (a : Maybe A) →
