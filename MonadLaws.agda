@@ -2,6 +2,7 @@ open import Agda.Primitive
 open import Agda.Builtin.String
 open import Function.Base
 open import Agda.Builtin.Unit
+open import Function.Construct.Composition
 
 import Relation.Binary.PropositionalEquality as Eq
 open Eq
@@ -41,6 +42,5 @@ composition : (A B C : Set) →
               (a : Maybe A) →
               (f : B → C) →
               (g : A → B) →
-              ⊤
-              -- map f (g a) ≡ map f (map g a)
+              map (f ∘ g) a ≡ map f (map g a)
 composition A B C a f g = {!!}
