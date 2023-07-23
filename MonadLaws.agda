@@ -1,3 +1,5 @@
+module MonadLaws where
+
 open import Agda.Primitive
 open import Agda.Builtin.String
 open import Function.Base
@@ -8,39 +10,41 @@ import Relation.Binary.PropositionalEquality as Eq
 open Eq
 open Eq.≡-Reasoning
 
-data Maybe (A : Set) : Set where
- just : A → Maybe A
- nothing : Maybe A
+module Maybe where
 
-bind : {A B : Set} → Maybe A → (A → Maybe B) → Maybe B
-bind (just x) k = k x
-bind nothing k = nothing
+    data Maybe (A : Set) : Set where
+     just : A → Maybe A
+     nothing : Maybe A
 
-infixl 1 _>>=_
-_>>=_ = bind
+    bind : {A B : Set} → Maybe A → (A → Maybe B) → Maybe B
+    bind (just x) k = k x
+    bind nothing k = nothing
 
-pure : {A : Set} → A → Maybe A
-pure x = just x
+    infixl 1 _>>=_
+    _>>=_ = bind
 
--- confirm that do notation works
-x : Maybe String
-x = do
-  x <- just "hello"
-  pure x
+    pure : {A : Set} → A → Maybe A
+    pure x = just x
 
-map : {A B : Set} → (A → B) → Maybe A → Maybe B
-map f (just x) = just (f x)
-map f nothing = nothing
+    -- confirm that do notation works
+    x : Maybe String
+    x = do
+      x <- just "hello"
+      pure x
 
-funct_id : (A B : Set) →
-           (a : Maybe A) →
-           map id a ≡ id a
-funct_id A B (just j) = refl
-funct_id A B nothing = refl
+    map : {A B : Set} → (A → B) → Maybe A → Maybe B
+    map f (just x) = just (f x)
+    map f nothing = nothing
 
-composition : (A B C : Set) →
-              (a : Maybe A) →
-              (f : B → C) →
-              (g : A → B) →
-              map (f ∘ g) a ≡ map f (map g a)
-composition A B C a f g = {!!}
+    funct_id : (A B : Set) →
+               (a : Maybe A) →
+               map id a ≡ id a
+    funct_id A B (just j) = refl
+    funct_id A B nothing = refl
+
+    composition : (A B C : Set) →
+                  (a : Maybe A) →
+                  (f : B → C) →
+                  (g : A → B) →
+                  map (f ∘ g) a ≡ map f (map g a)
+    composition A B C a f g = {!!}
