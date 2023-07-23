@@ -47,4 +47,5 @@ module Maybe where
                   (f : B → C) →
                   (g : A → B) →
                   map (f ∘ g) a ≡ map f (map g a)
-    composition A B C a f g = {!!}
+    composition A B C (just x) f g = refl
+    composition A B C nothing f g = refl
