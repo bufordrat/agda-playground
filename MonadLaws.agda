@@ -113,12 +113,12 @@ module MonadsAreFunctors where
 
       map : {A B : Set₀} → (A → B) → Func A → Func B
 
-      ident : {A B : Set} →
+      ident : {A B : Set₀} →
               (a : Func A) →
               ---------------
               map id a ≡ id a
 
-      composition : {A B C : Set} →
+      composition : {A B C : Set₀} →
                     {f : B → C} →
                     {g : A → B} →
                     (a : Func A) →
