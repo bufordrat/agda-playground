@@ -127,4 +127,8 @@ module MonadsAreFunctors where
 
     
   monads_are_functors : Monad → Functor
-  monads_are_functors = {!!}
+  monads_are_functors monad =
+    record { Func = {!!}
+           ; map = {!!}
+           ; ident = {!!}
+           ; composition = {!!} }
