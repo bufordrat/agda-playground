@@ -36,16 +36,16 @@ module Maybe where
     map f (just x) = just (f x)
     map f nothing = nothing
 
-    funct_id : (A B : Set) →
+    funct_id : {A B : Set} →
                (a : Maybe A) →
                map id a ≡ id a
-    funct_id A B (just j) = refl
-    funct_id A B nothing = refl
+    funct_id (just j) = refl
+    funct_id nothing = refl
 
-    composition : (A B C : Set) →
+    composition : {A B C : Set} →
+                  {f : B → C} →
+                  {g : A → B} →
                   (a : Maybe A) →
-                  (f : B → C) →
-                  (g : A → B) →
                   map (f ∘ g) a ≡ map f (map g a)
-    composition A B C (just x) f g = refl
-    composition A B C nothing f g = refl
+    composition (just x) = refl
+    composition nothing = refl
