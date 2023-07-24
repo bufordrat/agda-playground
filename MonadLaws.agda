@@ -26,33 +26,43 @@ module Maybe where
     pure : {A : Set} → A → Maybe A
     pure x = just x
 
-    -- confirm that do notation works
-    x : Maybe String
-    x = do
-      x <- just "hello"
-      pure x
-
     map : {A B : Set} → (A → B) → Maybe A → Maybe B
-    map f (just x) = just (f x)
-    map f nothing = nothing
+    map f ma = ma >>= λ a → pure (f a)
 
-    funct_id : {A B : Set} →
-               (a : Maybe A) →
-               map id a ≡ id a
-    funct_id (just j) = refl
-    funct_id nothing = refl
+    module ItsAFunctor where
 
-    composition : {A B C : Set} →
-                  {f : B → C} →
-                  {g : A → B} →
-                  (a : Maybe A) →
-                  map (f ∘ g) a ≡ map f (map g a)
-    composition (just x) = refl
-    composition nothing = refl
+        funct_id : {A B : Set} →
+                   (a : Maybe A) →
+                   map id a ≡ id a
+        funct_id (just j) = refl
+        funct_id nothing = refl
 
-    left_id : (A B : Set) →
-              (x : A) →
-              (k : A -> Maybe B) →
-              (pure x >>= k) ≡ k x
-    left_id A B x k = {!!}
+        composition : {A B C : Set} →
+                      {f : B → C} →
+                      {g : A → B} →
+                      (a : Maybe A) →
+                      map (f ∘ g) a ≡ map f (map g a)
+        composition (just x) = refl
+        composition nothing = refl
 
+    module ItsAMonad where
+
+        left_id : {A B : Set} →
+                  {x : A} →
+                  (k : A -> Maybe B) →
+                  (pure x >>= k) ≡ k x
+        left_id k = refl
+
+        right_id : {A : Set} →
+                   (ma : Maybe A) →
+                   (pure ma >>= id) ≡ ma
+        right_id (just x) = refl
+        right_id nothing = refl
+
+        associativity : (A B C : Set) →
+                        (ma : Maybe A) →
+                        (f : A → Maybe B) →
+                        (g : B → Maybe C) →
+                        ((ma >>= f) >>= g) ≡ (ma >>= (λ a → f a >>= g))
+        associativity A B C (just x) f g = refl
+        associativity A B C nothing f g = refl
