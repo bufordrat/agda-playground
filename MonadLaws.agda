@@ -75,24 +75,32 @@ module MonadsAreFunctors where
 
   record Monad : Set₁ where
     field
+
       Mon : Set₀ → Set₀
+
       _>>=_ : {A B : Set₀} →
               Mon A →
               (A → Mon B) →
               Mon B
+
       pure : {A : Set₀} → A → Mon A
+
       left_id : {A B : Set₀} →
                 {x : A} →
                 (k : A -> Mon B) →
                 --------------------
                 (pure x >>= k) ≡ k x
+
       right_id : {A : Set₀} →
                  (ma : Mon A) →
+                 ---------------------
                  (pure ma >>= id) ≡ ma
+
       associativity : {A B C : Set₀} →
                       {f : A → Mon B} →
                       {g : B → Mon C} →
                       (ma : Mon A) →
+                      ---------------------------
                       (
                       (ma >>= f) >>= g)
                       ≡ (ma >>= (λ a → f a >>= g)
@@ -100,13 +108,21 @@ module MonadsAreFunctors where
 
   record Functor : Set₁ where
     field
+
       Func : Set₀ → Set₀
+
       map : {A B : Set₀} → (A → B) → Func A → Func B
-      ident : {A B : Set} → (a : Func A) → map id a ≡ id a
+
+      ident : {A B : Set} →
+              (a : Func A) →
+              ---------------
+              map id a ≡ id a
+
       composition : {A B C : Set} →
                     {f : B → C} →
                     {g : A → B} →
                     (a : Func A) →
+                    ------------------------------
                     map (f ∘ g) a ≡ map f (map g a)
 
     
