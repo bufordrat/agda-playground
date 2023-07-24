@@ -49,3 +49,10 @@ module Maybe where
                   map (f ∘ g) a ≡ map f (map g a)
     composition (just x) = refl
     composition nothing = refl
+
+    left_id : (A B : Set) →
+              (x : A) →
+              (k : A -> Maybe B) →
+              (pure x >>= k) ≡ k x
+    left_id A B x k = {!!}
+
