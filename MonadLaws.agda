@@ -59,10 +59,10 @@ module Maybe where
         right_id (just x) = refl
         right_id nothing = refl
 
-        associativity : (A B C : Set) →
+        associativity : {A B C : Set} →
+                        {f : A → Maybe B} →
+                        {g : B → Maybe C} →
                         (ma : Maybe A) →
-                        (f : A → Maybe B) →
-                        (g : B → Maybe C) →
                         ((ma >>= f) >>= g) ≡ (ma >>= (λ a → f a >>= g))
-        associativity A B C (just x) f g = refl
-        associativity A B C nothing f g = refl
+        associativity (just x) = refl
+        associativity nothing = refl
