@@ -145,9 +145,9 @@ module MonadsAreFunctors where
         identity ma =
           begin
             (ma >>= (λ simple → pure (id simple)))
-          ≡⟨ sym (associativity ma) ⟩
-            ?
-          ≡⟨ ? ⟩
+          -- ≡⟨ sym (associativity ma) ⟩
+          --   ?
+          ≡⟨ {!!} ⟩
             pure ma >>= id
           ≡⟨ right_id ma ⟩
             ma
