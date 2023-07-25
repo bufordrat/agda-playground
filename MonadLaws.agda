@@ -135,18 +135,26 @@ module MonadsAreFunctors where
               ; right_id = right_id
               ; associativity = associativity }) =
     record { Func = m
-           ; map = λ f funky → funky >>= (λ simple → pure (f simple))
+           ; map = map
            ; ident = {!!}
            ; composition = {!!} }
       where
+        map : {A B : Set} → (A → B) → m A → m B
+        map = λ f func → func >>= λ simple → pure (f simple)
+
         identity : {A B : Set} →
                    (ma : m A) →
-                   (ma >>= (λ simple → pure (id simple))) ≡ id ma
+                   ma >>= (λ simple → pure (id simple)) ≡ id ma
         identity ma =
+          -- this feels like it's sorta the way to do it
+          -- ma >>= (λ simple → pure (id simple))                      assumption
+          -- ma >>= (λ simple → (pure ∘ id) simple)                    definition of composition
+          -- ma >>= (λ simple → (pure ∘ id) simple >>= (pure ∘ id))    definition of bind/pure
+          -- ma >>= (pure ∘ id) >>= (pure ∘ id)                        associativity
+          -- ma                                                        definition of bind/pure
+          -- id ma                                                     definition of id
           begin
-            (ma >>= (λ simple → pure (id simple)))
-          -- ≡⟨ sym (associativity ma) ⟩
-          --   ?
+            ma >>= (λ simple → pure (id simple))
           ≡⟨ {!!} ⟩
             pure ma >>= id
           ≡⟨ right_id ma ⟩
@@ -154,5 +162,3 @@ module MonadsAreFunctors where
           ≡⟨ refl ⟩
             id ma
           ∎
-                
-                
