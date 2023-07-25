@@ -127,14 +127,32 @@ module MonadsAreFunctors where
                     map (f ∘ g) a ≡ map f (map g a)
 
     
-  monads_are_functors : Monad → Functor
-  monads_are_functors (record { Mon = m
-                              ; _>>=_ = _>>=_
-                              ; pure = pure
-                              ; left_id = lid
-                              ; right_id = rid
-                              ; associativity = ass }) =
+  m2f : Monad → Functor
+  m2f (record { Mon = m
+              ; _>>=_ = _>>=_
+              ; pure = pure
+              ; left_id = left_id
+              ; right_id = right_id
+              ; associativity = associativity }) =
     record { Func = m
-           ; map = λ f funky → funky >>= (λ simple -> pure (f simple))
+           ; map = λ f funky → funky >>= (λ simple → pure (f simple))
            ; ident = {!!}
            ; composition = {!!} }
+      where
+        identity : {A B : Set} →
+                   (ma : m A) →
+                   (ma >>= (λ simple → pure (id simple))) ≡ id ma
+        identity ma =
+          begin
+            (ma >>= (λ simple → pure (id simple)))
+          ≡⟨ sym (associativity ma) ⟩
+            ?
+          ≡⟨ ? ⟩
+            pure ma >>= id
+          ≡⟨ right_id ma ⟩
+            ma
+          ≡⟨ refl ⟩
+            id ma
+          ∎
+                
+                
