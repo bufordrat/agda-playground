@@ -120,8 +120,8 @@ module MonadsAreFunctors where
               map id a ≡ id a
 
       composition : {A B C : Set₀} →
-                    {f : B → C} →
-                    {g : A → B} →
+                    (f : B → C) →
+                    (g : A → B) →
                     (a : Func A) →
                     ------------------------------
                     map (f ∘ g) a ≡ map f (map g a)
@@ -161,8 +161,13 @@ module MonadsAreFunctors where
           ∎
 
         composition : {A B C : Set} → 
-                      {f : B → C} →
-                      {g : A → B} →
-                      (a : M A) →
-                      map (f ∘ g) a ≡ map f (map g a)
-        composition = {!!}
+                      (f : B → C) →
+                      (g : A → B) →
+                      (ma : M A) →
+                      map (f ∘ g) ma ≡ map f (map g ma)
+        composition f g ma =
+          begin
+            map (f ∘ g) ma
+          ≡⟨ {!!} ⟩
+            map f (map g ma)
+          ∎
