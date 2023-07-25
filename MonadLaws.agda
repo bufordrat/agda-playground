@@ -60,7 +60,7 @@ module ItsAMonad where
 
   right_id : {A : Set} →
              (ma : Maybe A) →
-             (pure ma >>= id) ≡ ma
+             (ma >>= pure) ≡ ma
   right_id (just x) = refl
   right_id nothing = refl
 
@@ -95,7 +95,7 @@ module MonadsAreFunctors where
       right_id : {A : Set₀} →
                  (ma : Mon A) →
                  ---------------------
-                 (pure ma >>= id) ≡ ma
+                 ma >>= pure ≡ ma
 
       associativity : {A B C : Set₀} →
                       {f : A → Mon B} →
@@ -136,11 +136,11 @@ module MonadsAreFunctors where
               ; associativity = associativity }) =
     record { Func = m
            ; map = map
-           ; ident = {!!}
+           ; ident = λ a → {!!}
            ; composition = {!!} }
       where
         map : {A B : Set} → (A → B) → m A → m B
-        map = λ f func → func >>= λ simple → pure (f simple)
+        map f func = func >>= λ simple → pure (f simple)
 
         identity : {A B : Set} →
                    (ma : m A) →
@@ -150,14 +150,14 @@ module MonadsAreFunctors where
           -- ma >>= (λ simple → pure (id simple))                      assumption
           -- ma >>= (λ simple → (pure ∘ id) simple)                    definition of composition
           -- ma >>= (λ simple → (pure ∘ id) simple >>= (pure ∘ id))    definition of bind/pure
-          -- ma >>= (pure ∘ id) >>= (pure ∘ id)                        associativity
+          -- (ma >>= (pure ∘ id) >>= (pure ∘ id)                       associativity
+          -- (ma >>= (pure ∘ id) >>= (pure ∘ id)                       associativity
+          -- ma >>= (pure ∘ id)                                        definition of bind/pure
           -- ma                                                        definition of bind/pure
           -- id ma                                                     definition of id
           begin
             ma >>= (λ simple → pure (id simple))
           ≡⟨ {!!} ⟩
-            pure ma >>= id
-          ≡⟨ right_id ma ⟩
             ma
           ≡⟨ refl ⟩
             id ma
