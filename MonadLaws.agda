@@ -172,6 +172,6 @@ module MonadsAreFunctors where
             ma >>= (λ simple → pure ((f ∘ g) simple))
           ≡⟨ {!!} ⟩
             (ma >>= (λ simple1 → pure (g simple1))) >>= (λ simple2 → pure (f simple2))
-          ≡⟨ {!refl!} ⟩
+          ≡⟨ refl ⟩
             map f (map g ma)
           ∎
