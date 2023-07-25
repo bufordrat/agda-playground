@@ -136,7 +136,7 @@ module MonadsAreFunctors where
               ; associativity = associativity }) =
     record { Func = M
            ; map = map
-           ; ident = {!!}
+           ; ident = right_id
            ; composition = composition }
       where
         map : {A B : Set} → (A → B) → M A → M B
@@ -168,6 +168,10 @@ module MonadsAreFunctors where
         composition f g ma =
           begin
             map (f ∘ g) ma
+          ≡⟨ refl ⟩
+            ma >>= (λ simple → pure ((f ∘ g) simple))
           ≡⟨ {!!} ⟩
+            (ma >>= (λ simple1 → pure (g simple1))) >>= (λ simple2 → pure (f simple2))
+          ≡⟨ {!refl!} ⟩
             map f (map g ma)
           ∎
