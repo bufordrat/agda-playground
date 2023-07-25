@@ -5,6 +5,7 @@ open import Agda.Builtin.String
 open import Function.Base
 open import Agda.Builtin.Unit
 open import Function.Construct.Composition
+open import Agda.Builtin.Nat
 
 import Relation.Binary.PropositionalEquality as Eq
 open Eq
@@ -127,8 +128,13 @@ module MonadsAreFunctors where
 
     
   monads_are_functors : Monad → Functor
-  monads_are_functors monad =
-    record { Func = {!!}
-           ; map = {!!}
+  monads_are_functors (record { Mon = m
+                              ; _>>=_ = _>>=_
+                              ; pure = pure
+                              ; left_id = lid
+                              ; right_id = rid
+                              ; associativity = ass }) =
+    record { Func = m
+           ; map = λ f funky → funky >>= (λ simple -> pure (f simple))
            ; ident = {!!}
            ; composition = {!!} }
