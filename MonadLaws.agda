@@ -128,25 +128,27 @@ module MonadsAreFunctors where
 
     
   m2f : Monad → Functor
-  m2f (record { Mon = m
+  m2f (record { Mon = M
               ; _>>=_ = _>>=_
               ; pure = pure
               ; left_id = left_id
               ; right_id = right_id
               ; associativity = associativity }) =
-    record { Func = m
+    record { Func = M
            ; map = map
            ; ident = {!!}
            ; composition = composition }
       where
-        map : {A B : Set} → (A → B) → m A → m B
+        map : {A B : Set} → (A → B) → M A → M B
         map f func = func >>= λ simple → pure (f simple)
 
         identity : {A B : Set} →
-                   (ma : m A) →
-                   ma >>= (λ simple → pure (id simple)) ≡ id ma
+                   (ma : M A) →
+                   map id ma ≡ id ma
         identity ma =
           begin
+            map id ma
+          ≡⟨ refl ⟩
             ma >>= (λ simple → pure (id simple))
           ≡⟨ refl ⟩
             ma >>= (pure ∘ id)
@@ -161,6 +163,6 @@ module MonadsAreFunctors where
         composition : {A B C : Set} → 
                       {f : B → C} →
                       {g : A → B} →
-                      (a : m A) →
+                      (a : M A) →
                       map (f ∘ g) a ≡ map f (map g a)
         composition = {!!}
