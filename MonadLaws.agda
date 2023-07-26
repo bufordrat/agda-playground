@@ -149,7 +149,7 @@ module MonadsAreFunctors where
           begin
             map id ma
           ≡⟨ refl ⟩
-            ma >>= (λ simple → pure (id simple))
+            ma >>= (λ a → pure (id a))
           ≡⟨ refl ⟩
             ma >>= (pure ∘ id)
           ≡⟨ refl ⟩
@@ -169,13 +169,13 @@ module MonadsAreFunctors where
           begin
             map (f ∘ g) ma
           ≡⟨ refl ⟩
-            ma >>= (λ simple → pure ((f ∘ g) simple))
+            ma >>= (λ a → pure ((f ∘ g) a))
           ≡⟨ refl ⟩
-            ma >>= (λ simple → pure (f (g simple)))
+            ma >>= (λ a → pure (f (g a)))
           ≡⟨ {!!} ⟩
-            ma >>= (λ a → (λ simple1 → pure (g simple1)) a >>= (λ simple2 → pure (f simple2)))
+            ma >>= (λ a → (λ b → pure (g b)) a >>= (λ c → pure (f c)))
           ≡⟨ sym (associativity ma) ⟩
-            (ma >>= (λ simple1 → pure (g simple1))) >>= (λ simple2 → pure (f simple2))
+            (ma >>= (λ b → pure (g b))) >>= (λ c → pure (f c))
           ≡⟨ refl ⟩
             map f (map g ma)
           ∎
