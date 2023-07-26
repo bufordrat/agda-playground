@@ -148,15 +148,15 @@ module MonadsAreFunctors where
         identity ma =
           begin
             map id ma
-          ≡⟨ refl ⟩
+          ≡⟨ refl ⟩                         -- definition of map
             ma >>= (λ a → pure (id a))
-          ≡⟨ refl ⟩
+          ≡⟨ refl ⟩                         -- definition of _∘_
             ma >>= (pure ∘ id)
-          ≡⟨ refl ⟩
+          ≡⟨ refl ⟩                         -- definition of id
             ma >>= pure
           ≡⟨ right_id ma ⟩
             ma
-          ≡⟨ refl ⟩
+          ≡⟨ refl ⟩                         -- definition of id
             id ma
           ∎
 
