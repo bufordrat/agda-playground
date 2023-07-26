@@ -171,6 +171,8 @@ module MonadsAreFunctors where
           ≡⟨ refl ⟩
             ma >>= (λ simple → pure ((f ∘ g) simple))
           ≡⟨ {!!} ⟩
+            ma >>= (λ a → (λ simple1 → pure (g simple1)) a >>= (λ simple2 → pure (f simple2)))
+          ≡⟨ sym (associativity ma) ⟩
             (ma >>= (λ simple1 → pure (g simple1))) >>= (λ simple2 → pure (f simple2))
           ≡⟨ refl ⟩
             map f (map g ma)
