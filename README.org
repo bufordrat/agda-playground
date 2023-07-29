@@ -1,6 +1,15 @@
 #+Author: Matt Teichman
-#+Title: Fun with Givant and Halmos!
+#+Title: Fun with Agda
 
-As an exercise for learning Agda, I have been trying to code up the
-opening pages of Givant and Halmos' [[https://link.springer.com/book/10.1007/978-0-387-68436-9][Introduction to Boolean Algebras]].
-Agda is quite the bomb-ass language, if you ask me.
+This repository contain's Matt's Agda sketches/experiments.
+Currently, it contains three main modules:
+
+- `MonadLaws.agda` : an attempt to do some of what you can't do in
+  Haskell with monads and functors
+- `Chapter1.agda` : an attempt to work through the first page or two
+  of Givant and Halmos' [_Introduction to Boolean
+  Algebras_](https://link.springer.com/book/10.1007/978-0-387-68436-9)
+- `Teller.agda` : an attempt to develop a feel for the differences
+  between intuitionistic and classical logic by working through some
+  of [Paul Teller](https://tellerprimer.ucdavis.edu/) Vol. 2's intro
+  logic exercises
