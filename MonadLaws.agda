@@ -172,9 +172,9 @@ module MonadsAreFunctors where
             ma >>= (λ a → pure ((f ∘ g) a))
           ≡⟨ refl ⟩
             ma >>= (λ a → pure (f (g a)))
+          ≡⟨ refl ⟩
+            ma >>= (λ a → (pure ∘ f) (g a))
           ≡⟨ {!!} ⟩
-          --   ma >>= (λ a → (pure ∘ f) (g a))
-          -- ≡⟨ refl ⟩
             ma >>= (λ a → pure (g a) >>= (pure ∘ f))
           ≡⟨ refl ⟩
             ma >>= (λ a → (pure ∘ g) a >>= (pure ∘ f))
@@ -187,11 +187,3 @@ module MonadsAreFunctors where
           ≡⟨ refl ⟩
             map f (map g ma)
           ∎
-
-
-          --   ma >>= (λ a → (pure ∘ g) a >>= (pure ∘ f))
-          -- ≡⟨ refl ⟩
-          --   ma >>= (λ a → (λ b → pure (g b)) a >>= (pure ∘ f))
-          -- ≡⟨ refl ⟩
-          --   ma >>= (λ a → (λ b → pure (g b)) a >>= (λ c → pure (f c)))
-          -- ≡⟨ sym (associativity ma) ⟩
