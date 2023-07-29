@@ -8,6 +8,6 @@ Currently, it contains three main modules:
   Haskell with monads and functors
 - =Chapter1.agda= : an attempt to work through the first page or two
   of Givant and Halmos' [[https://link.springer.com/book/10.1007/978-0-387-68436-9][_Introduction to Boolean Algebras_]]
-- `Teller.agda` : an attempt to develop a feel for the differences
+- =Teller.agda= : an attempt to develop a feel for the differences
   between intuitionistic and classical logic by working through some
   of [[https://tellerprimer.ucdavis.edu/][Paul Teller]] Vol. 2's intro logic exercises
