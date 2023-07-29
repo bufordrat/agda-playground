@@ -187,3 +187,11 @@ module MonadsAreFunctors where
           ≡⟨ refl ⟩
             map f (map g ma)
           ∎
+            -- where
+            --   lemma1 : (A : Set₀) →
+            --            (x : A) →
+            --            (f : B → C) →
+            --            (g : A → B) →
+            --            (pure (g x) >>= (pure ∘ f)) →
+            --            pure (g x) >>= (pure ∘ f) ≡ (λ a → (pure ∘ f) (g a))
+            --   lemma1 = ?
