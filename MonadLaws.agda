@@ -190,8 +190,6 @@ module MonadsAreFunctors where
             -- where
             --   lemma1 : (A : Set₀) →
             --            (x : A) →
-            --            (f : B → C) →
-            --            (g : A → B) →
-            --            (pure (g x) >>= (pure ∘ f)) →
-            --            pure (g x) >>= (pure ∘ f) ≡ (λ a → (pure ∘ f) (g a))
+            --            ((pure ∘ g) >>= (pure ∘ f)) →
+            --            (pure (g x) >>= (pure ∘ f)) ≡ ((λ a → (pure ∘ f) (g a)))
             --   lemma1 = ?
