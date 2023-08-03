@@ -87,7 +87,7 @@ module MonadsAreFunctors where
       pure : {A : Set₀} → A → Mon A
 
       left_id : {A B : Set₀} →
-                {x : A} →
+                (x : A) →
                 (k : A -> Mon B) →
                 --------------------
                 (pure x >>= k) ≡ k x
@@ -165,7 +165,7 @@ module MonadsAreFunctors where
                       (g : A → B) →
                       (ma : M A) →
                       map (f ∘ g) ma ≡ map f (map g ma)
-        composition f g ma =
+        composition {A} f g ma =
           begin
             map (f ∘ g) ma
           ≡⟨ refl ⟩
@@ -188,8 +188,11 @@ module MonadsAreFunctors where
             map f (map g ma)
           ∎
             -- where
-            --   lemma1 : (A : Set₀) →
-            --            (x : A) →
-            --            ((pure ∘ g) >>= (pure ∘ f)) →
-            --            (pure (g x) >>= (pure ∘ f)) ≡ ((λ a → (pure ∘ f) (g a)))
-            --   lemma1 = ?
+            --   lemma : (a : A) →
+            --           (pure ∘ f) (g a) ≡ pure (g a) >>= (pure ∘ f)
+            --   lemma a =
+            --     begin
+            --       (pure ∘ f) (g a)
+            --     ≡⟨ left_id (g a) (pure ∘ f) ⟩
+            --       pure (g a) >>= (pure ∘ f)
+            --     ∎
