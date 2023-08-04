@@ -175,7 +175,7 @@ module MonadsAreFunctors where
             ma >>= (λ a → pure (f (g a)))
           ≡⟨ refl ⟩
             ma >>= (λ a → (pure ∘ f) (g a))
-          ≡⟨ {!left_id!} ⟩
+          ≡⟨ {!!} ⟩
             ma >>= (λ a → pure (g a) >>= (pure ∘ f))
           ≡⟨ refl ⟩
             ma >>= (λ a → (pure ∘ g) a >>= (pure ∘ f))
@@ -193,4 +193,4 @@ module MonadsAreFunctors where
                       (k : A → M B) → 
                       (pure x >>= k ≡ k x) →
                       (ma >>= (λ a → pure (f (g a)))) ≡ (ma >>= (λ a → pure (g a) >>= (λ x → pure (f x))))
-              lemma a = {!!}
+              lemma x k lid = {!!}
