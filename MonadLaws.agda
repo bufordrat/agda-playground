@@ -3,6 +3,7 @@ module MonadLaws where
 open import Agda.Primitive
 open import Agda.Builtin.String
 open import Function.Base
+
 open import Agda.Builtin.Unit
 open import Function.Construct.Composition
 open import Agda.Builtin.Nat
@@ -165,7 +166,7 @@ module MonadsAreFunctors where
                       (g : A → B) →
                       (ma : M A) →
                       map (f ∘ g) ma ≡ map f (map g ma)
-        composition {A} f g ma =
+        composition {A} {B} f g ma =
           begin
             map (f ∘ g) ma
           ≡⟨ refl ⟩
@@ -174,7 +175,7 @@ module MonadsAreFunctors where
             ma >>= (λ a → pure (f (g a)))
           ≡⟨ refl ⟩
             ma >>= (λ a → (pure ∘ f) (g a))
-          ≡⟨ {!!} ⟩
+          ≡⟨ {!left_id!} ⟩
             ma >>= (λ a → pure (g a) >>= (pure ∘ f))
           ≡⟨ refl ⟩
             ma >>= (λ a → (pure ∘ g) a >>= (pure ∘ f))
@@ -187,12 +188,9 @@ module MonadsAreFunctors where
           ≡⟨ refl ⟩
             map f (map g ma)
           ∎
-            -- where
-            --   lemma : (a : A) →
-            --           (pure ∘ f) (g a) ≡ pure (g a) >>= (pure ∘ f)
-            --   lemma a =
-            --     begin
-            --       (pure ∘ f) (g a)
-            --     ≡⟨ left_id (g a) (pure ∘ f) ⟩
-            --       pure (g a) >>= (pure ∘ f)
-            --     ∎
+            where
+              lemma : (x : A) →
+                      (k : A → M B) → 
+                      (pure x >>= k ≡ k x) →
+                      (ma >>= (λ a → pure (f (g a)))) ≡ (ma >>= (λ a → pure (g a) >>= (λ x → pure (f x))))
+              lemma a = {!!}

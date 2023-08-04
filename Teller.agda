@@ -4,9 +4,7 @@ open import Data.Product
 open import Data.Sum
 open import Relation.Nullary
 open import Data.Empty
--- open import Agda.Primitive
 open import Level
--- open import Data.Empty.Polymorphic
 
 module 2-5-1-a where
 
