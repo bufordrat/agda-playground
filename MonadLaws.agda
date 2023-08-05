@@ -189,8 +189,15 @@ module MonadsAreFunctors where
             map f (map g ma)
           ∎
             where
+              lhs = ma >>= λ a → (pure ∘ f) (g a)
+              rhs = ma >>= λ a → pure (g a) >>= (pure ∘ f)
               lemma : (x : A) →
                       (k : A → M B) → 
                       (pure x >>= k ≡ k x) →
-                      (ma >>= (λ a → pure (f (g a)))) ≡ (ma >>= (λ a → pure (g a) >>= (λ x → pure (f x))))
-              lemma x k lid = {!!}
+                      lhs ≡ rhs
+              lemma x k lid =
+                begin
+                  ma >>= (λ a → pure (f (g a)))
+                ≡⟨ {!!} ⟩
+                  ma >>= (λ a → pure (g a) >>= (λ x → pure (f x)))
+                ∎
