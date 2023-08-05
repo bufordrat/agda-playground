@@ -174,6 +174,8 @@ module MonadsAreFunctors where
           ≡⟨ refl ⟩
             ma >>= (λ a → pure (f (g a)))
           ≡⟨ refl ⟩
+            ma >>= (λ a → (λ x → (pure (f x))) (g a))
+          ≡⟨ refl ⟩
             ma >>= (λ a → (pure ∘ f) (g a))
           ≡⟨ {!!} ⟩
             ma >>= (λ a → pure (g a) >>= (pure ∘ f))
