@@ -75,38 +75,40 @@ module ItsAMonad where
 
 module MonadsAreFunctors where
 
-  record Monad : Set₁ where
-    field
+  module Bind where
 
-      Mon : Set₀ → Set₀
+    record Monad : Set₁ where
+      field
 
-      _>>=_ : {A B : Set₀} →
-              Mon A →
-              (A → Mon B) →
-              Mon B
+        Mon : Set₀ → Set₀
 
-      pure : {A : Set₀} → A → Mon A
+        _>>=_ : {A B : Set₀} →
+                Mon A →
+                (A → Mon B) →
+                Mon B
 
-      left_id : {A B : Set₀} →
-                (x : A) →
-                (k : A -> Mon B) →
-                --------------------
-                (pure x >>= k) ≡ k x
+        pure : {A : Set₀} → A → Mon A
 
-      right_id : {A : Set₀} →
-                 (ma : Mon A) →
-                 ---------------------
-                 ma >>= pure ≡ ma
+        left_id : {A B : Set₀} →
+                  (x : A) →
+                  (k : A -> Mon B) →
+                  --------------------
+                  (pure x >>= k) ≡ k x
 
-      associativity : {A B C : Set₀} →
-                      {f : A → Mon B} →
-                      {g : B → Mon C} →
-                      (ma : Mon A) →
-                      ---------------------------
-                      (
-                      (ma >>= f) >>= g)
-                      ≡ (ma >>= (λ a → f a >>= g)
-                      )
+        right_id : {A : Set₀} →
+                   (ma : Mon A) →
+                   ---------------------
+                   ma >>= pure ≡ ma
+
+        associativity : {A B C : Set₀} →
+                        {f : A → Mon B} →
+                        {g : B → Mon C} →
+                        (ma : Mon A) →
+                        ---------------------------
+                        (
+                        (ma >>= f) >>= g)
+                        ≡ (ma >>= (λ a → f a >>= g)
+                        )
 
   record Functor : Set₁ where
     field
@@ -128,7 +130,7 @@ module MonadsAreFunctors where
                     map (f ∘ g) a ≡ map f (map g a)
 
     
-  m2f : Monad → Functor
+  m2f : Bind.Monad → Functor
   m2f (record { Mon = M
               ; _>>=_ = _>>=_
               ; pure = pure
