@@ -9,4 +9,4 @@ B _ = ℕ
 
 partialSuc : (x : ℕ) → B x
 partialSuc 0 = tt
-partialSuc n = suc n
+partialSuc (suc n) = suc (suc n)
