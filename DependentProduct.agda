@@ -15,12 +15,12 @@ partialSuc : (x : ℕ) → B x
 partialSuc 0 = tt
 partialSuc (suc n) = suc (suc n)
 
-F : (x : Bool) → Set
-F true = ⊤
-F false = ℕ
+-- F : (x : Bool) → Set
+-- F true = ⊤
+-- F false = ℕ
 
-productExample : Set
-productExample = (x : Bool) → F x
+-- productExample : Set
+-- productExample = (x : Bool) → F x
 
 BoolAndNat : Set
 BoolAndNat = Bool × ℕ
@@ -28,9 +28,18 @@ BoolAndNat = Bool × ℕ
 data Pair (A : Set) (B : Set) : Set where
   _,_ : A → B → Pair A B
 
-FancyPair : (A : Set) → (B : Set) → Bool → Set
-FancyPair A B true = A
-FancyPair A B false = B
+F : (A : Set) → (B : Set) → Bool → Set
+F A B true = A
+F A B false = B
+
+PairUp : (A : Set) →
+         (B : Set) →
+         (x : A) →
+         (y : B) →
+         (b : Bool) →
+         F A B b
+PairUp A B x y true = x
+PairUp A B x y false = y
 
 data Either (A : Set) (B : Set) : Set where
   inj₁ : (x : A) → Either A B
