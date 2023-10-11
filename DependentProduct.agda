@@ -1,35 +1,51 @@
 module DependentProduct where
 
+import Relation.Binary.PropositionalEquality as Eq
+open Eq
+open Eq.≡-Reasoning
+
 open import Data.Sum
 open import Data.Bool
 open import Data.Product
-
 open import Data.Unit
 open import Data.Nat
+open import Level
 
-B : (x : ℕ) → Set
-B 0 = ⊤
-B _ = ℕ
 
-partialSuc : (x : ℕ) → B x
-partialSuc 0 = tt
-partialSuc (suc n) = suc (suc n)
+module ProductIsomorphism where
 
--- F : (x : Bool) → Set
--- F true = ⊤
--- F false = ℕ
+  data Pair (A B : Set) : Set where
+    _,_ : A → B → Pair A B
 
--- productExample : Set
--- productExample = (x : Bool) → F x
+  FancyPair : (A B : Set) → Bool → Set
+  FancyPair A B true = A
+  FancyPair A B false = B
+
+  pairToFancyPair : (A B : Set) →
+                    Pair A B →
+                    -------------
+                    (b : Bool) → FancyPair A B b
+  pairToFancyPair _ _ (a , b) true = a
+  pairToFancyPair _ _ (a , b) false = b
+
+  fancyPairToPair : (A B : Set) →
+                    ((b : Bool) → FancyPair A B b) →
+                    -------------
+                    Pair A B
+  fancyPairToPair A B fpr = (fpr true , fpr false)
+
+  stuffIsInvertible : (A B : Set) →
+                      (p : Pair A B) →
+                      p ≡ fancyPairToPair A B (pairToFancyPair A B p)
+  stuffIsInvertible = ?
+
+
 
 BoolAndNat : Set
 BoolAndNat = Bool × ℕ
 
 both : BoolAndNat
 both = false , 2
-
-data Pair (A B : Set) : Set where
-  _,_ : A → B → Pair A B
 
 F : Bool → Set
 F true = Bool
@@ -82,3 +98,21 @@ fancyExample1 = true , true
 
 fancyExample2 : FancyBoolOrNat
 fancyExample2 = false , 12
+
+
+
+
+-- B : (x : ℕ) → Set
+-- B 0 = ⊤
+-- B _ = ℕ
+
+-- partialSuc : (x : ℕ) → B x
+-- partialSuc 0 = tt
+-- partialSuc (suc n) = suc (suc n)
+
+-- F : (x : Bool) → Set
+-- F true = ⊤
+-- F false = ℕ
+
+-- productExample : Set
+-- productExample = (x : Bool) → F x
