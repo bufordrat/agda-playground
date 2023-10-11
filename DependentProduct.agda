@@ -34,10 +34,10 @@ module ProductIsomorphism where
                     Pair A B
   fancyPairToPair A B fpr = (fpr true , fpr false)
 
-  stuffIsInvertible : (A B : Set) →
+  theyreIsomorphic : (A B : Set) →
                       (p : Pair A B) →
                       p ≡ fancyPairToPair A B (pairToFancyPair A B p)
-  stuffIsInvertible = ?
+  theyreIsomorphic = {!!}
 
 
 
