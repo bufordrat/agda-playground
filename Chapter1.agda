@@ -24,7 +24,6 @@ record BooleanRing : Set₁ where
   infixr 30 _∙_
   infixr 20 _+_
 
-
 module Theorems (B : BooleanRing) where
 
   -- what to show: every Boolean ring has characteristic two, that is,
