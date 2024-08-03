@@ -4,20 +4,14 @@ open import Data.Empty
 open import Relation.Nullary
 open import Relation.Unary
 
--- let's assume box as a primitive
-□ : Set → Set
-□ = {!!}
-
-mw_raise : Set
-mw_raise = {!!}
+postulate □ : Set → Set
+postulate unemployment_goes_up : Set
+postulate mw_raise : Set
 
 don't_raise_mw : □ (¬ mw_raise)
 don't_raise_mw =
   don't_raise_unemployment mw_raises_unemployment
     where
-      unemployment_goes_up : Set
-      unemployment_goes_up = {!!}
-
       don't_raise_unemployment : {X : Set} →
                                  (X → unemployment_goes_up) →
                                  □ (¬ X)
@@ -26,18 +20,15 @@ don't_raise_mw =
       mw_raises_unemployment : mw_raise → unemployment_goes_up
       mw_raises_unemployment = {!!}
 
-R : Set
-R = {!!}
-
-Un : Set
-Un = {!!}
+postulate R : Set
+postulate Un : Set
 
 N : □ (¬ R)
 N =
-  □¬R R→Un
+  Un_is_bad R→Un
     where
-      □¬R : {X : Set} → (X → Un) → □ (¬ X)
-      □¬R = {!!}
+      Un_is_bad : {X : Set} → (X → Un) → □ (¬ X)
+      Un_is_bad = {!!}
 
       R→Un : R → Un
       R→Un = {!!}
