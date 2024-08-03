@@ -425,21 +425,21 @@ module Metamath where
                          ----------
                          ∃[ x ] (∀ {y} → P x y)
 
-  converse-is-bad : ∀ {i j k : Level} → converse {i} {j} {k} → ⊥
-  converse-is-bad {i} {j} {k} prf = {!!}
-    where
-      A : Set i
-      A = Lift i ⊥
-      B : Set j
-      B = Lift j ⊥
-      P : A → B → Set k
-      P a (lift j_bot) = ⊥-elim j_bot
-      univ_wide : ∀ {y} → ∃[ x ] P x y
-      univ_wide {lift j_bot} = ⊥-elim j_bot
-      univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
-      univ_narrow : univ_narrow_type
-      univ_narrow = prf A B P univ_wide
-      destruct : univ_narrow_type → ⊥
-      destruct ()
+  -- converse-is-bad : ∀ {i j k : Level} → converse {i} {j} {k} → ⊥
+  -- converse-is-bad {i} {j} {k} prf = {!!}
+  --   where
+  --     A : Set i
+  --     A = Lift i ⊥
+  --     B : Set j
+  --     B = Lift j ⊥
+  --     P : A → B → Set k
+  --     P a (lift j_bot) = ⊥-elim j_bot
+  --     univ_wide : ∀ {y} → ∃[ x ] P x y
+  --     univ_wide {lift j_bot} = ⊥-elim j_bot
+  --     univ_narrow_type = ∃[ x ] (∀ {y} → P x y)
+  --     univ_narrow : univ_narrow_type
+  --     univ_narrow = prf A B P univ_wide
+  --     destruct : univ_narrow_type → ⊥
+  --     destruct ()
 
  

@@ -17,8 +17,7 @@ record BooleanRing : Set₁ where
     +-id : ∀ { p } → p + ∅ ≡ p
     +-inverse : ∀ { p } → p + ¬ p ≡ ∅
     ∙-assoc : ∀ { p q r } → (p ∙ q) ∙ r ≡ p ∙ (q ∙ r)
-    ∙-left-id : ∀ { p } → p ∙ 𝟙 ≡ p
-    ∙-right-id : ∀ { p } → 𝟙 ∙ p ≡ p
+    ∙-id : ∀ { p } → p ∙ 𝟙 ≡ p
     left-distrib : ∀ { p q r } → p ∙ (q + r) ≡ (p ∙ q) + (p ∙ r)
     right-distrib : ∀ { p q r } → (q + r) ∙ p ≡ (q ∙ p) + (r ∙ p)
     ∙-idemp : ∀ { p } → p ∙ p ≡ p
