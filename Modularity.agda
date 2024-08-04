@@ -4,7 +4,7 @@ open import Data.Empty
 open import Relation.Nullary
 open import Function
 
--- to avoid having to define □
+-- shortcut to avoid having to define □
 postulate □ : Set → Set
 
 module Axioms where
@@ -34,28 +34,15 @@ module Argument where
   N : □ (¬ R)
   N = □¬M (L→M ∘ R→L)
 
+module RefactoredPremise where
+  open Axioms
+  open InferenceRules
 
-
--- -- atomic propositions
--- postulate mw_raise : Set
--- postulate unemployment_goes_up : Set
--- postulate mass_layoffs : Set
-
--- -- axioms
--- postulate mw_layoffs : mw_raise → mass_layoffs
--- postulate unem_layoffs : mass_layoffs → unemployment_goes_up
--- postulate don't_raise_unemployment : {X : Set} →
---                                      (X → unemployment_goes_up) →
---                                      □ (¬ X)
-
--- don't_raise_mw : □ (¬ mw_raise)
--- don't_raise_mw =
---   don't_raise_unemployment mw_raises_unemployment
---     where
---       mw_raises_unemployment : mw_raise → unemployment_goes_up
---       mw_raises_unemployment = unem_layoffs ∘ mw_layoffs
-
--- don't_raise_mw' : □ (¬ mw_raise)
--- don't_raise_mw' =
---   don't_raise_unemployment (unem_layoffs ∘ mw_layoffs)
-
+  -- N: "don't raise the minimum wage"
+  N : □ (¬ R)
+  N = □¬M R→M
+    where
+      -- R→M: "if the minimum wage is raised,
+      --       unemployment goes up"
+      R→M : R → M
+      R→M = L→M ∘ R→L
